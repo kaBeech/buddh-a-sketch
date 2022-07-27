@@ -12,7 +12,8 @@ body {
 
 .cell {
     box-sizing: border-box;
-    width: 5vw;
+    /* width: 5vw; */
+    width: 64px;
     aspect-ratio: 1;
     background-color: #bbb;
     border-style: solid;
