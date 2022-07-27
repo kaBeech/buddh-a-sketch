@@ -1,5 +1,8 @@
+
+
 function createEtchPadDisplay() {
     const body = document.querySelector('body');
+    body.classList.add('flex');
     createBox16(body);
     populateBox16();
 }
@@ -43,3 +46,9 @@ function createCell(parentNode) {
 
 
 createEtchPadDisplay();
+
+// document.addEventListener('onHover', activateCell);
+
+// function activateCell() {
+//     if -
+// }
