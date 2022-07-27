@@ -5,3 +5,11 @@
 .column {
     flex-direction: column;
 }
+
+.cell {
+    box-sizing: border-box;
+    width: 5vw;
+    aspect-ratio: 1;
+    background-color: #bbb;
+    border-style: solid;
+}
