@@ -1,12 +1,25 @@
 const body = document.querySelector('body');
 
-function addDiv(parentNode) {
+function addBox16(parentNode) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
+    div.classList.add = 'box16';
+    div.classList.add = 'flex';
 }
 
-addDiv(body);
-addDiv(body);
+addBox16(body);
+
+function addColumnFlexDiv(parentNode) {
+    const box16 = document.querySelector('.box16');
+    const div = document.createElement('div');
+    parentNode.appendChild(div);
+    div.classList.add = 'columnFlexDiv';
+    div.classList.add = 'flex';
+    div.classList.add = 'column';
+}
+
+
+// addDiv(body);
 
 
 /*
