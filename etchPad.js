@@ -45,7 +45,7 @@ function createCell(parentNode, int) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
     div.classList.add('cell');
-    div.style.width = `${1024/int}px`;
+    div.style.width = `${512/int}px`;
     div.addEventListener('mouseenter', activateCell);
 }
 
