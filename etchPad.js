@@ -42,12 +42,15 @@ function createCell(parentNode) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
     div.classList.add('cell');
+    div.addEventListener('mouseenter', activateCell);
 }
 
+function activateCell() {
+    this.classList.add('active')
+}
 
 createEtchPadDisplay();
 
-// document.addEventListener('onHover', activateCell);
 
 // function activateCell() {
 //     if -
