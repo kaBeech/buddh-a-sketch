@@ -9,13 +9,28 @@ function addBox16(parentNode) {
 
 addBox16(body);
 
-function addColumnFlexDiv(parentNode) {
-    const box16 = document.querySelector('.box16');
+const box16 = document.querySelector('.box16');
+
+function addColumnContainer(parentNode) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
-    div.classList.add = 'columnFlexDiv';
+    div.classList.add = 'columnContainer';
     div.classList.add = 'flex';
     div.classList.add = 'column';
+}
+
+function addCellDiv(parentNode) {
+    const div = document.createElement('div');
+    parentNode.appendChild(div);
+    div.classList.add = 'cell';
+}
+
+function populateColumnFlexDiv() {
+    const columns = document.querySelectorAll('.columnContainer');
+    const column = columns[-1];
+    for (i = 0; i>16; i++) {
+        addCellDiv(column)
+    }
 }
 
 
