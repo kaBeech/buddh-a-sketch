@@ -1,4 +1,8 @@
-const body = document.querySelector('body');
+function createEtchPadDisplay() {
+    const body = document.querySelector('body');
+    addBox16(body);
+    populateBox16();
+}
 
 function addBox16(parentNode) {
     const div = document.createElement('div');
@@ -6,9 +10,6 @@ function addBox16(parentNode) {
     div.classList.add('box16');
     div.classList.add('flex');
 }
-
-addBox16(body);
-
 
 function addColumnContainer(parentNode) {
     const div = document.createElement('div');
