@@ -27,14 +27,14 @@ function addCellDiv(parentNode) {
 function populateColumnContainer() {
     const columns = document.querySelectorAll('.columnContainer');
     const column = columns[columns.length - 1];
-    for (i = 0; i<16; i++) {
+    for (let i = 0; i<16; i++) {
         addCellDiv(column);
     }
 }
 
 function populateBox16() {
     const box16 = document.querySelector('.box16');
-    for (i = 0; i<16; i++) {
+    for (let i = 0; i<16; i++) {
         addColumnContainer(box16);
         populateColumnContainer();
     }
