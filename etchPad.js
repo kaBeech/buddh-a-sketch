@@ -2,12 +2,25 @@
 
 function createEtchPadDisplay(int) {
     const body = document.querySelector('body');
-    body.classList.add('flex');
+    body.classList.add('flex', 'column');
     while (body.hasChildNodes()) {
         body.removeChild(body.firstChild);
     }
+    createButton(body);
     createEtchGrid(body);
     populateEtchGrid(int);
+}
+
+function createButton(parentNode) {
+    const button = document.createElement('button');
+    parentNode.appendChild(button);
+    button.classList.add('button');
+    button.addEventListener('click', createNewEtchGrid);
+    button.textContent = "Draw New Pad";
+}
+
+function createNewEtchGrid() {
+
 }
 
 function createEtchGrid(parentNode) {
@@ -45,7 +58,7 @@ function createCell(parentNode, int) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
     div.classList.add('cell');
-    div.style.width = `${512/int}px`;
+    div.style.width = `${480/int}px`;
     div.addEventListener('mouseenter', activateCell);
 }
 
