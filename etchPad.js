@@ -42,7 +42,7 @@ function createCell(parentNode) {
 }
 
 
-// populateBox16();
+createEtchPadDisplay();
 
 // addDiv(body);
 
