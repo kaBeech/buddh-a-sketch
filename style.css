@@ -16,7 +16,7 @@ body {
     width: 64px;
     aspect-ratio: 1;
     background-color: #bbb;
-    border-style: solid;
+    /* border-style: solid; */
     flex: 1 1 auto;
 }
 
