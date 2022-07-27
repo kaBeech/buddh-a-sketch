@@ -20,7 +20,12 @@ function createButton(parentNode) {
 }
 
 function createNewEtchGrid() {
-
+    let userInt = prompt("How many cells per side?", "16");
+    if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
+        createEtchPadDisplay(+userInt);
+    } else {
+        alert("Please enter a whole number between 1 and 100")
+    }
 }
 
 function createEtchGrid(parentNode) {
