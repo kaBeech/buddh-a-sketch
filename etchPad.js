@@ -43,15 +43,3 @@ function createCell(parentNode) {
 
 
 createEtchPadDisplay();
-
-// addDiv(body);
-
-
-/*
-
-select body
-create outer flex div in that body
-create 4 column flex divs in that outer flex div
-create 4 divs in each column 
-
-*/
