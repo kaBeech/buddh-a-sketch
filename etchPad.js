@@ -1,24 +1,24 @@
 
 
-function createEtchPadDisplay() {
+function createEtchPadDisplay(int) {
     const body = document.querySelector('body');
     body.classList.add('flex');
-    createBox16(body);
-    populateBox16();
+    createEtchGrid(body);
+    populateEtchGrid(int);
 }
 
-function createBox16(parentNode) {
+function createEtchGrid(parentNode) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
-    div.classList.add('box16');
+    div.classList.add('etchGrid');
     div.classList.add('flex');
 }
 
-function populateBox16() {
-    const box16 = document.querySelector('.box16');
-    for (let i = 0; i<16; i++) {
-        createColumnContainer(box16);
-        populateColumnContainer();
+function populateEtchGrid(int) {
+    const etchGrid = document.querySelector('.etchGrid');
+    for (let i = 0; i<int; i++) {
+        createColumnContainer(etchGrid);
+        populateColumnContainer(int);
     }
 }
 
@@ -30,10 +30,10 @@ function createColumnContainer(parentNode) {
     div.classList.add('column');
 }
 
-function populateColumnContainer() {
+function populateColumnContainer(int) {
     const columns = document.querySelectorAll('.columnContainer');
     const column = columns[columns.length - 1];
-    for (let i = 0; i<16; i++) {
+    for (let i = 0; i<int; i++) {
         createCell(column);
     }
 }
@@ -49,7 +49,7 @@ function activateCell() {
     this.classList.add('active')
 }
 
-createEtchPadDisplay();
+createEtchPadDisplay(16);
 
 
 // function activateCell() {
