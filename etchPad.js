@@ -3,6 +3,9 @@
 function createEtchPadDisplay(int) {
     const body = document.querySelector('body');
     body.classList.add('flex');
+    while (body.hasChildNodes()) {
+        body.removeChild(body.firstChild);
+    }
     createEtchGrid(body);
     populateEtchGrid(int);
 }
@@ -34,14 +37,15 @@ function populateColumnContainer(int) {
     const columns = document.querySelectorAll('.columnContainer');
     const column = columns[columns.length - 1];
     for (let i = 0; i<int; i++) {
-        createCell(column);
+        createCell(column, int);
     }
 }
 
-function createCell(parentNode) {
+function createCell(parentNode, int) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
     div.classList.add('cell');
+    div.style.width = `${1024/int}px`;
     div.addEventListener('mouseenter', activateCell);
 }
 
@@ -50,8 +54,3 @@ function activateCell() {
 }
 
 createEtchPadDisplay(16);
-
-
-// function activateCell() {
-//     if -
-// }
