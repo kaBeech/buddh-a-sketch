@@ -26,11 +26,11 @@ body {
     /* width: 5vw; */
     width: 64px;
     aspect-ratio: 1;
-    background-color: #bbb;
+    background-color: hsl(120, 0%, 73%);
     /* border-style: solid; */
     flex: 1 1 auto;
 }
 
 .cell.active {
-    background-color: #000;
+    background-color: hsl(120, 0%, 0%);
 }
