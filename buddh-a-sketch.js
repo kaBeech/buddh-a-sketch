@@ -73,12 +73,37 @@ function simpleEtch() {
 
 function skEtch() {
     let cellStyle = window.getComputedStyle(this);
-    let cellHSL = cellStyle.backgroundColor.slice(4, -1);
+    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
+    cellRGB = cellRGB.split(",");
+    let cellHSL = RGBToHSL(...cellRGB);
     console.log(cellHSL);
 }
 
-function getHSL(cellStyle) {
-    console.log(cellStyle.backgroundColor);
+function RGBToHSL(R, G, B) {
+    R /= 255;
+    G /= 255;
+    B /= 255;
+    let cMin = Math.min(R, G, B);
+    let cMax = Math.max(R, G, B);
+    let delta = cMax - cMin;
+    let H = 0;
+    let S = 0;
+    let L = 0;
+    if (delta == 0) {
+    H = 0;
+    } else if (cMax == R) {
+    H = ((G - B) / delta) % 6;
+    } else if (cMax == G) {
+    H = (B - R) / delta + 2;
+    } else {
+    H = (R - G) / delta + 4;
+    H = Math.round(H * 60)
+    };
+    L = (cMax + cMin) / 2;
+    S = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    S = +(S * 100).toFixed(0);
+    L = +(L * 100).toFixed(0);
+    return [H, S, L];
 }
 
 createEtchPadDisplay(16);
