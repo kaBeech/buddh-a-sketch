@@ -64,7 +64,7 @@ function createCell(parentNode, int) {
     parentNode.appendChild(div);
     div.classList.add('cell');
     div.style.width = `${480/int}px`;
-    div.addEventListener('mouseenter', simpleEtch);
+    div.addEventListener('mouseenter', skEtch);
 }
 
 function simpleEtch() {
@@ -76,7 +76,13 @@ function skEtch() {
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
+    let cellL = cellHSL[2]
+    if (cellL > 0) {
+        cellL -= 7;
+    }
+    cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
     console.log(cellHSL);
+    this.style.backgroundColor = cellHSL;
 }
 
 function RGBToHSL(R, G, B) {

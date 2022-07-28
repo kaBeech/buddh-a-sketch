@@ -26,7 +26,7 @@ body {
     /* width: 5vw; */
     width: 64px;
     aspect-ratio: 1;
-    background-color: hsl(120, 0%, 73%);
+    background-color: hsl(120, 0%, 70%);
     /* border-style: solid; */
     flex: 1 1 auto;
 }
