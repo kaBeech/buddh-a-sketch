@@ -64,11 +64,21 @@ function createCell(parentNode, int) {
     parentNode.appendChild(div);
     div.classList.add('cell');
     div.style.width = `${480/int}px`;
-    div.addEventListener('mouseenter', activateCell);
+    div.addEventListener('mouseenter', simpleEtch);
 }
 
-function activateCell() {
-    this.classList.add('active')
+function simpleEtch() {
+    this.classList.add('active');
+}
+
+function skEtch() {
+    let cellStyle = window.getComputedStyle(this);
+    let cellHSL = cellStyle.backgroundColor.slice(4, -1);
+    console.log(cellHSL);
+}
+
+function getHSL(cellStyle) {
+    console.log(cellStyle.backgroundColor);
 }
 
 createEtchPadDisplay(16);
