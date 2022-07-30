@@ -1,6 +1,7 @@
-
+var IDTick = 0;
 
 function createEtchPadDisplay(int) {
+    IDTick = 0;
     const body = document.querySelector('body');
     body.classList.add('flex', 'column');
     while (body.hasChildNodes()) {
@@ -61,10 +62,19 @@ function populateColumnContainer(int) {
 
 function createCell(parentNode, int) {
     const div = document.createElement('div');
-    parentNode.appendChild(div);
+    const cellID = "ID" + ++IDTick;
+    div.setAttribute('id', cellID)
     div.classList.add('cell');
     div.style.width = `${480/int}px`;
     div.addEventListener('mouseenter', skEtch);
+    // div.addEventListener('mouseenter', setInterval(evaporate(), 250));
+    // div.onclick = function() {alert("Test")};
+    // div.onclick = function() {alert("Test")};
+    // div.onclick = function() {simpleEtch()};
+    // div.addEventListener('click', setInterval(evaporate(cellID), 250));
+    div.addEventListener('click', evaporate);
+    // div.addEventListener('click', simpleEtch);
+    parentNode.appendChild(div);
 }
 
 function simpleEtch() {
@@ -111,5 +121,24 @@ function RGBToHSL(R, G, B) {
     L = +(L * 100).toFixed(0);
     return [H, S, L];
 }
+
+function evaporate() {
+    // targetID = "#" + targetID;
+    // const target = document.querySelector(".cell");
+    let cellStyle = window.getComputedStyle(this);
+    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
+    cellRGB = cellRGB.split(",");
+    let cellHSL = RGBToHSL(...cellRGB);
+    let cellL = cellHSL[2];
+    if (cellL < 70) {
+        cellL += 1;
+        cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
+        this.style.backgroundColor = cellHSL;
+        console.log(cellL);
+        console.log(cellHSL);
+    // } else {
+    //     clearInterval(evapInterval)
+    }
+} 
 
 createEtchPadDisplay(16);
