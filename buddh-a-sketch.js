@@ -152,7 +152,7 @@ function evaporate(targetID) {
         console.log(cellL);
         console.log(cellHSL);
     } else {
-        clearInterval(evapInterval);
+        // clearInterval(evapInterval);
     }
 } 
 
