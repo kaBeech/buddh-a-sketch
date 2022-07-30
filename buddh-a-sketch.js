@@ -80,8 +80,22 @@ function createCell(parentNode, int) {
     parentNode.appendChild(div);
 }
 
-function evaporateAtInterval(cellID) {
-    evapInterval = setInterval(evaporate, 250, cellID);
+function evaporateAtInterval(targetID) {
+    targetID2 = "#" + targetID;
+    console.log("targetID: " + targetID2);
+    const target = document.querySelector(targetID2);
+    let cellStyle = window.getComputedStyle(target);
+    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
+    cellRGB = cellRGB.split(",");
+    let cellHSL = RGBToHSL(...cellRGB);
+    let cellL = cellHSL[2];
+    let newlyWet = false;
+    if (cellL >= 60) {
+        newlyWet = true;
+    }
+    if (newlyWet) {
+    evapInterval = setInterval(evaporate, 500, targetID);
+    }
 }
 
 function simpleEtch() {
@@ -95,7 +109,7 @@ function skEtch() {
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2]
     if (cellL > 0) {
-        cellL -= 7;
+        cellL -= 10;
     }
     cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
     console.log(cellHSL);
