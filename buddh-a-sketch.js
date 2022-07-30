@@ -72,15 +72,15 @@ function createCell(parentNode, int) {
     // div.onclick = function() {alert("Test")};
     // div.onclick = function() {simpleEtch()};
     // div.addEventListener('click', setInterval(evaporate(cellID), 250));
-    div.addEventListener('click', setTargetID);
-    div.addEventListener('click', evaporate);
-    div.onclick = setInterval(evaporate, 250, this.id)
+    // div.addEventListener('click', setTargetID);
+    // div.addEventListener('click', evaporate);
+    div.onmouseenter = setInterval(evaporate, 250, cellID)
     // div.addEventListener('click', simpleEtch);
     parentNode.appendChild(div);
 }
 
 function simpleEtch() {
-    this.classList.add('active');
+    this.style.backgroundColor = "hsl(120, 100%, 0%)";
 }
 
 function skEtch() {
@@ -132,7 +132,9 @@ function setTargetID() {
 
 function evaporate(targetID) {
     // const targetID = globalTargetID;
-    const target = document.querySelector("#ID1");
+    targetID = "#" + targetID;
+    console.log("targetID: " + targetID);
+    const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
