@@ -74,9 +74,14 @@ function createCell(parentNode, int) {
     // div.addEventListener('click', setInterval(evaporate(cellID), 250));
     // div.addEventListener('click', setTargetID);
     // div.addEventListener('click', evaporate);
-    div.onmouseenter = setInterval(evaporate, 250, cellID)
+    // div.onclick = evaporateAtInterval(cellID);
+    div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
     // div.addEventListener('click', simpleEtch);
     parentNode.appendChild(div);
+}
+
+function evaporateAtInterval(cellID) {
+    evapInterval = setInterval(evaporate, 250, cellID);
 }
 
 function simpleEtch() {
@@ -146,8 +151,8 @@ function evaporate(targetID) {
         target.style.backgroundColor = cellHSL;
         console.log(cellL);
         console.log(cellHSL);
-    // } else {
-    //     clearInterval(evapInterval)
+    } else {
+        clearInterval(evapInterval);
     }
 } 
 
