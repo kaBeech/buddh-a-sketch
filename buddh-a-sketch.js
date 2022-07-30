@@ -67,22 +67,13 @@ function createCell(parentNode, int) {
     div.classList.add('cell');
     div.style.width = `${480/int}px`;
     div.addEventListener('mouseenter', skEtch);
-    // div.addEventListener('mouseenter', setInterval(evaporate(), 250));
-    // div.onclick = function() {alert("Test")};
-    // div.onclick = function() {alert("Test")};
-    // div.onclick = function() {simpleEtch()};
-    // div.addEventListener('click', setInterval(evaporate(cellID), 250));
-    // div.addEventListener('click', setTargetID);
-    // div.addEventListener('click', evaporate);
-    // div.onclick = evaporateAtInterval(cellID);
     div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
-    // div.addEventListener('click', simpleEtch);
     parentNode.appendChild(div);
 }
 
 function evaporateAtInterval(targetID) {
     targetID2 = "#" + targetID;
-    console.log("targetID: " + targetID2);
+    // console.log("targetID: " + targetID2);
     const target = document.querySelector(targetID2);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
@@ -94,7 +85,7 @@ function evaporateAtInterval(targetID) {
         newlyWet = true;
     }
     if (newlyWet) {
-    evapInterval = setInterval(evaporate, 500, targetID);
+    evapInterval = setInterval(evaporate, 333, targetID);
     }
 }
 
@@ -112,7 +103,7 @@ function skEtch() {
         cellL -= 10;
     }
     cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
-    console.log(cellHSL);
+    // console.log(cellHSL);
     this.style.backgroundColor = cellHSL;
 }
 
@@ -143,16 +134,9 @@ function RGBToHSL(R, G, B) {
     return [H, S, L];
 }
 
-var globalTargetID = "string";
-
-function setTargetID() {
-    globalTargetID =  this.id;
-}
-
 function evaporate(targetID) {
-    // const targetID = globalTargetID;
     targetID = "#" + targetID;
-    console.log("targetID: " + targetID);
+    // console.log("targetID: " + targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
@@ -163,8 +147,8 @@ function evaporate(targetID) {
         cellL += 1;
         cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
-        console.log(cellL);
-        console.log(cellHSL);
+        // console.log(cellL);
+        // console.log(cellHSL);
     } else {
         // clearInterval(evapInterval);
     }
