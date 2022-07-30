@@ -85,7 +85,7 @@ function evaporateAtInterval(targetID) {
         newlyWet = true;
     }
     if (newlyWet) {
-    evapInterval = setInterval(evaporate, 333, targetID);
+    evapInterval = setInterval(evaporate, 500, targetID);
     }
 }
 
