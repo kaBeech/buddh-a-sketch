@@ -71,27 +71,9 @@ function createCell(parentNode, int) {
     parentNode.appendChild(div);
 }
 
-function evaporateAtInterval(targetID) {
-    targetID2 = "#" + targetID;
-    // console.log("targetID: " + targetID2);
-    const target = document.querySelector(targetID2);
-    let cellStyle = window.getComputedStyle(target);
-    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
-    cellRGB = cellRGB.split(",");
-    let cellHSL = RGBToHSL(...cellRGB);
-    let cellL = cellHSL[2];
-    let newlyWet = false;
-    if (cellL >= 60) {
-        newlyWet = true;
-    }
-    if (newlyWet) {
-    evapInterval = setInterval(evaporate, 500, targetID);
-    }
-}
-
-function simpleEtch() {
-    this.style.backgroundColor = "hsl(120, 100%, 0%)";
-}
+// function simpleEtch() {
+//     this.style.backgroundColor = "hsl(120, 100%, 0%)";
+// }
 
 function skEtch() {
     let cellStyle = window.getComputedStyle(this);
@@ -132,6 +114,24 @@ function RGBToHSL(R, G, B) {
     S = +(S * 100).toFixed(0);
     L = +(L * 100).toFixed(0);
     return [H, S, L];
+}
+
+function evaporateAtInterval(targetID) {
+    targetID2 = "#" + targetID;
+    // console.log("targetID: " + targetID2);
+    const target = document.querySelector(targetID2);
+    let cellStyle = window.getComputedStyle(target);
+    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
+    cellRGB = cellRGB.split(",");
+    let cellHSL = RGBToHSL(...cellRGB);
+    let cellL = cellHSL[2];
+    let newlyWet = false;
+    if (cellL >= 60) {
+        newlyWet = true;
+    }
+    if (newlyWet) {
+    evapInterval = setInterval(evaporate, 500, targetID);
+    }
 }
 
 function evaporate(targetID) {
