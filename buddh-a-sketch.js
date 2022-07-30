@@ -72,7 +72,9 @@ function createCell(parentNode, int) {
     // div.onclick = function() {alert("Test")};
     // div.onclick = function() {simpleEtch()};
     // div.addEventListener('click', setInterval(evaporate(cellID), 250));
+    div.addEventListener('click', setTargetID);
     div.addEventListener('click', evaporate);
+    div.onclick = setInterval(evaporate, 250, this.id)
     // div.addEventListener('click', simpleEtch);
     parentNode.appendChild(div);
 }
@@ -122,10 +124,16 @@ function RGBToHSL(R, G, B) {
     return [H, S, L];
 }
 
-function evaporate() {
-    // targetID = "#" + targetID;
-    // const target = document.querySelector(".cell");
-    let cellStyle = window.getComputedStyle(this);
+var globalTargetID = "string";
+
+function setTargetID() {
+    globalTargetID =  this.id;
+}
+
+function evaporate(targetID) {
+    // const targetID = globalTargetID;
+    const target = document.querySelector("#ID1");
+    let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
@@ -133,7 +141,7 @@ function evaporate() {
     if (cellL < 70) {
         cellL += 1;
         cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
-        this.style.backgroundColor = cellHSL;
+        target.style.backgroundColor = cellHSL;
         console.log(cellL);
         console.log(cellHSL);
     // } else {
