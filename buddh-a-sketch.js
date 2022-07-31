@@ -1,7 +1,7 @@
 
 
 var IDTick = 0;
-var rainbowHue = 120;
+var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
 
 rainbowInterval = setInterval(shiftRainbow, 250);
