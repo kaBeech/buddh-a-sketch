@@ -1,6 +1,6 @@
 var IDTick = 0;
-
 var rainbowHue = 120;
+var currentStyle = "classic";
 
 rainbowInterval = setInterval(shiftRainbow, 250);
 
@@ -14,12 +14,13 @@ function shiftRainbow() {
 
 function createBoard(int, style) {
     IDTick = 0;
+    currentStyle = style;
     const body = document.querySelector('body');
     body.classList.add('flex', 'column');
-    if (style === 'classic') {
+    if (currentStyle === 'classic') {
         body.classList.add('ltGrey');
         body.classList.remove('dkGrey');
-    } else if (style === 'rainbow') {
+    } else if (currentStyle === 'rainbow') {
         body.classList.add('dkGrey');
         body.classList.remove('ltGrey');
     }
@@ -27,8 +28,8 @@ function createBoard(int, style) {
         body.removeChild(body.firstChild);
     }
     createButton(body);
-    createEtchGrid(body, style);
-    populateEtchGrid(int, style);
+    createEtchGrid(body);
+    populateEtchGrid(int);
 }
 
 function createButton(parentNode) {
@@ -48,25 +49,25 @@ function createNewBoard() {
     }
 }
 
-function createEtchGrid(parentNode, style) {
+function createEtchGrid(parentNode) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
     div.classList.add('etchGrid');
     div.classList.add('flex');
-    if (style === 'classic') {
+    if (currentStyle === 'classic') {
         div.classList.add('borderBlack');
         div.classList.remove('borderGrey');
-    } else if (style === 'rainbow') {
+    } else if (currentStyle === 'rainbow') {
         div.classList.add('borderGrey');
         div.classList.remove('borderBlack');
     }
 }
 
-function populateEtchGrid(int, style) {
+function populateEtchGrid(int) {
     const etchGrid = document.querySelector('.etchGrid');
     for (let i = 0; i<int; i++) {
         createColumnContainer(etchGrid);
-        populateColumnContainer(int, style);
+        populateColumnContainer(int);
     }
 }
 
@@ -78,29 +79,27 @@ function createColumnContainer(parentNode) {
     div.classList.add('column');
 }
 
-function populateColumnContainer(int, style) {
+function populateColumnContainer(int) {
     const columns = document.querySelectorAll('.columnContainer');
     const column = columns[columns.length - 1];
     for (let i = 0; i<int; i++) {
-        createCell(column, int, style);
+        createCell(column, int);
     }
 }
 
-function createCell(parentNode, int, style) {
+function createCell(parentNode, int) {
     const div = document.createElement('div');
     const cellID = "ID" + ++IDTick;
     div.setAttribute('id', cellID)
     div.classList.add('cell');
-    if (style === 'classic') {
-        div.classList.add('grey');
-        div.classList.remove('black');
-    } else if (style === 'rainbow') {
-        div.classList.add('black');
-        div.classList.remove('grey');
+    if (currentStyle === 'classic') {
+        div.style.backgroundColor = "hsl(120, 0%, 70%)";
+    } else if (currentStyle === 'rainbow') {
+        div.style.backgroundColor = "hsl(120, 100%, 0%)";
     }
     div.style.width = `${480/int}px`;
-    div.addEventListener('mouseenter', function() {skEtch(cellID, style);});
-    div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID, style);});
+    div.addEventListener('mouseenter', function() {skEtch(cellID);});
+    div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
     parentNode.appendChild(div);
 }
 
@@ -108,7 +107,7 @@ function createCell(parentNode, int, style) {
 //     this.style.backgroundColor = "hsl(120, 100%, 0%)";
 // }
 
-function skEtch(targetID, style) {
+function skEtch(targetID) {
     targetID2 = "#" + targetID;
     const target = document.querySelector(targetID2);
     let cellStyle = window.getComputedStyle(target);
@@ -118,13 +117,13 @@ function skEtch(targetID, style) {
     let cellH = cellHSL[0];
     let cellS = cellHSL[1];
     let cellL = cellHSL[2];
-    if (style === "classic" && cellL > 0) {
+    if (currentStyle === "classic" && cellL > 0) {
         cellL -= 10;
-    } else if (style === "rainbow" && cellL < 100) {
+    } else if (currentStyle === "rainbow" && cellL < 100) {
         cellH = rainbowHue;
         cellL += 10;
     };
-    if (style === "rainbow" && cellL == 10) {
+    if (currentStyle === "rainbow" && cellL == 10) {
         cellH = rainbowHue;
         cellS = 100;
     }
@@ -160,7 +159,7 @@ function RGBToHSL(R, G, B) {
     return [H, S, L];
 }
 
-function evaporateAtInterval(targetID, style) {
+function evaporateAtInterval(targetID) {
     targetID2 = "#" + targetID;
     // console.log("targetID: " + targetID2);
     const target = document.querySelector(targetID2);
@@ -170,17 +169,17 @@ function evaporateAtInterval(targetID, style) {
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2];
     let newlyWet = false;
-    if (style === "classic" && cellL === 60) {
+    if (currentStyle === "classic" && cellL === 60) {
         newlyWet = true;
-    } else if (style === "rainbow" && cellL === 10) {
+    } else if (currentStyle === "rainbow" && cellL === 10) {
         newlyWet = true;
     }
     if (newlyWet) {
-    evapInterval = setInterval(evaporate, 750, targetID, style);
+    evapInterval = setInterval(evaporate, 750, targetID);
     }
 }
 
-function evaporate(targetID, style) {
+function evaporate(targetID) {
     targetID = "#" + targetID;
     // console.log("targetID: " + targetID);
     const target = document.querySelector(targetID);
@@ -189,13 +188,13 @@ function evaporate(targetID, style) {
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2];
-    if (style === "classic" && cellL < 70) {
+    if (currentStyle === "classic" && cellL < 70) {
         cellL += 1;
         cellHSL = `hsl(${cellHSL[0]}, 0%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
         // console.log(cellL);
         // console.log(cellHSL);
-    } else if (style === "rainbow" && cellL > 0) {
+    } else if (currentStyle === "rainbow" && cellL > 0) {
         cellL -= 1;
         cellHSL = `hsl(${rainbowHue}, 100%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
