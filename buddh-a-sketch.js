@@ -1,5 +1,3 @@
-
-
 var IDTick = 0;
 var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
@@ -20,6 +18,15 @@ function updateColor() {
     neonBlack.style.color = `hsl(${rainbowHue}, 100%, 50%)`;
 }
 
+function createNewBoard(style) {
+    let userInt = prompt("How many cells per side?", "16");
+    if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
+        createBoard(+userInt, style);
+    } else if (userInt !== null) {
+        alert("Please enter a whole number between 1 and 100");
+    }
+}
+
 function createBoard(int, style) {
     IDTick = 0;
     currentStyle = style;
@@ -37,15 +44,6 @@ function createBoard(int, style) {
     }
     createEtchGrid(body);
     populateEtchGrid(int);
-}
-
-function createNewBoard(style) {
-    let userInt = prompt("How many cells per side?", "16");
-    if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
-        createBoard(+userInt, style);
-    } else if (userInt !== null) {
-        alert("Please enter a whole number between 1 and 100");
-    }
 }
 
 function createEtchGrid(parentNode) {
@@ -83,6 +81,7 @@ function populateColumnContainer(int) {
     }
 }
 
+// I will remove extra eventListeners after mobile testing
 function createCell(parentNode, int) {
     const div = document.createElement('div');
     const cellID = "ID" + ++IDTick;
