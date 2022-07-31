@@ -125,7 +125,6 @@ function skEtch(targetID) {
     //     cellS = 100;
     // }
     cellHSL = `hsl(${cellH}, ${cellS}%, ${cellL}%)`;
-    // console.log(cellHSL);
     target.style.backgroundColor = cellHSL;
 }
 
@@ -178,7 +177,7 @@ function evaporateAtInterval(targetID) {
 
 function evaporate(targetID) {
     targetID = "#" + targetID;
-    console.log("targetID: " + targetID);
+    // console.log("targetID: " + targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
@@ -189,8 +188,6 @@ function evaporate(targetID) {
         cellL += 1;
         cellHSL = `hsl(${cellHSL[0]}, 0%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
-        // console.log(cellL);
-        // console.log(cellHSL);
     } else if (currentStyle === "neonBlack" && cellL > 0) {
         cellL -= 1;
         cellHSL = `hsl(${rainbowHue}, 100%, ${cellL}%)`;
