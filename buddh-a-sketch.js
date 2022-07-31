@@ -35,14 +35,14 @@ function createButton(parentNode) {
     const button = document.createElement('button');
     parentNode.appendChild(button);
     button.classList.add('button');
-    button.addEventListener('click', createNewEtchGrid);
+    button.addEventListener('click', createNewBoard);
     button.textContent = "Draw New Pad";
 }
 
-function createNewEtchGrid() {
+function createNewBoard() {
     let userInt = prompt("How many cells per side?", "16");
     if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
-        createBoard(+userInt);
+        createBoard(+userInt, "classic");
     } else {
         alert("Please enter a whole number between 1 and 100")
     }
