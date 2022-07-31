@@ -1,5 +1,17 @@
 var IDTick = 0;
 
+var rainbowHue = 120;
+
+rainbowInterval = setInterval(shiftRainbow, 250);
+
+function shiftRainbow() {
+    if (rainbowHue < 360) {
+        rainbowHue += 1;        
+    } else {
+        rainbowHue = 0;
+    }
+}
+
 function createBoard(int, style) {
     IDTick = 0;
     const body = document.querySelector('body');
@@ -103,13 +115,19 @@ function skEtch(targetID, style) {
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
-    let cellL = cellHSL[2]
+    let cellH = cellHSL[0];
+    let cellS = cellHSL[1];
+    let cellL = cellHSL[2];
     if (style === "classic" && cellL > 0) {
         cellL -= 10;
     } else if (style === "rainbow" && cellL < 100) {
         cellL += 10;
+    };
+    if (style === "rainbow" && cellL == 10) {
+        cellH = rainbowHue;
+        cellS = 100;
     }
-    cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
+    cellHSL = `hsl(${cellH}, ${cellS}%, ${cellL}%)`;
     // console.log(cellHSL);
     target.style.backgroundColor = cellHSL;
 }
@@ -135,7 +153,7 @@ function RGBToHSL(R, G, B) {
     H = Math.round(H * 60)
     };
     L = (cMax + cMin) / 2;
-    S = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    S = delta == 0 ? 0 : delta / (1 - Math.abs(2 * L - 1));
     S = +(S * 100).toFixed(0);
     L = +(L * 100).toFixed(0);
     return [H, S, L];
@@ -172,13 +190,13 @@ function evaporate(targetID, style) {
     let cellL = cellHSL[2];
     if (style === "classic" && cellL < 70) {
         cellL += 1;
-        cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
+        cellHSL = `hsl(${cellHSL[0]}, 0%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
         // console.log(cellL);
         // console.log(cellHSL);
     } else if (style === "rainbow" && cellL > 0) {
         cellL -= 1;
-        cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
+        cellHSL = `hsl(${rainbowHue}, 100%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
     } else {
         // clearInterval(evapInterval);
