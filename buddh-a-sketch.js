@@ -119,10 +119,15 @@ function skEtch(targetID) {
     let cellL = cellHSL[2];
     if (currentStyle === "classic" && cellL > 0) {
         cellL -= 10;
+        if ( cellL < 0) {
+            cellL = 0;
+        }
     } else if (currentStyle === "neonBlack" && cellL < 100) {
         cellH = rainbowHue;
         cellL += 10;
         cellS = 100;
+        if ( cellL > 100) {
+            cellL = 100;
     };
     // if (currentStyle === "neonBlack" && cellL == 10) {
     //     cellH = rainbowHue;
