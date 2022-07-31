@@ -1,15 +1,22 @@
 var IDTick = 0;
 
-function createBoard(int) {
+function createBoard(int, style) {
     IDTick = 0;
     const body = document.querySelector('body');
     body.classList.add('flex', 'column');
+    if (style === 'classic') {
+        body.classList.add('ltGrey');
+        body.classList.remove('dkGrey');
+    } else if (style === 'rainbow') {
+        body.classList.add('dkGrey');
+        body.classList.remove('ltGrey');
+    }
     while (body.hasChildNodes()) {
         body.removeChild(body.firstChild);
     }
     createButton(body);
-    createEtchGrid(body);
-    populateEtchGrid(int);
+    createEtchGrid(body, style);
+    populateEtchGrid(int, style);
 }
 
 function createButton(parentNode) {
@@ -29,18 +36,25 @@ function createNewEtchGrid() {
     }
 }
 
-function createEtchGrid(parentNode) {
+function createEtchGrid(parentNode, style) {
     const div = document.createElement('div');
     parentNode.appendChild(div);
     div.classList.add('etchGrid');
     div.classList.add('flex');
+    if (style === 'classic') {
+        div.classList.add('borderBlack');
+        div.classList.remove('borderGrey');
+    } else if (style === 'rainbow') {
+        div.classList.add('borderGrey');
+        div.classList.remove('borderBlack');
+    }
 }
 
-function populateEtchGrid(int) {
+function populateEtchGrid(int, style) {
     const etchGrid = document.querySelector('.etchGrid');
     for (let i = 0; i<int; i++) {
         createColumnContainer(etchGrid);
-        populateColumnContainer(int);
+        populateColumnContainer(int, style);
     }
 }
 
@@ -52,22 +66,29 @@ function createColumnContainer(parentNode) {
     div.classList.add('column');
 }
 
-function populateColumnContainer(int) {
+function populateColumnContainer(int, style) {
     const columns = document.querySelectorAll('.columnContainer');
     const column = columns[columns.length - 1];
     for (let i = 0; i<int; i++) {
-        createCell(column, int);
+        createCell(column, int, style);
     }
 }
 
-function createCell(parentNode, int) {
+function createCell(parentNode, int, style) {
     const div = document.createElement('div');
     const cellID = "ID" + ++IDTick;
     div.setAttribute('id', cellID)
     div.classList.add('cell');
+    if (style === 'classic') {
+        div.classList.add('grey');
+        div.classList.remove('black');
+    } else if (style === 'rainbow') {
+        div.classList.add('black');
+        div.classList.remove('grey');
+    }
     div.style.width = `${480/int}px`;
-    div.addEventListener('mouseenter', skEtch);
-    div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
+    div.addEventListener('mouseenter', function() {skEtch(cellID, style);});
+    div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID, style);});
     parentNode.appendChild(div);
 }
 
@@ -75,18 +96,22 @@ function createCell(parentNode, int) {
 //     this.style.backgroundColor = "hsl(120, 100%, 0%)";
 // }
 
-function skEtch() {
-    let cellStyle = window.getComputedStyle(this);
+function skEtch(targetID, style) {
+    targetID2 = "#" + targetID;
+    const target = document.querySelector(targetID2);
+    let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2]
-    if (cellL > 0) {
+    if (style === "classic" && cellL > 0) {
         cellL -= 10;
+    } else if (style === "rainbow" && cellL < 100) {
+        cellL += 10;
     }
     cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
     // console.log(cellHSL);
-    this.style.backgroundColor = cellHSL;
+    target.style.backgroundColor = cellHSL;
 }
 
 function RGBToHSL(R, G, B) {
@@ -116,7 +141,7 @@ function RGBToHSL(R, G, B) {
     return [H, S, L];
 }
 
-function evaporateAtInterval(targetID) {
+function evaporateAtInterval(targetID, style) {
     targetID2 = "#" + targetID;
     // console.log("targetID: " + targetID2);
     const target = document.querySelector(targetID2);
@@ -126,15 +151,17 @@ function evaporateAtInterval(targetID) {
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2];
     let newlyWet = false;
-    if (cellL === 60) {
+    if (style === "classic" && cellL === 60) {
+        newlyWet = true;
+    } else if (style === "rainbow" && cellL === 10) {
         newlyWet = true;
     }
     if (newlyWet) {
-    evapInterval = setInterval(evaporate, 750, targetID);
+    evapInterval = setInterval(evaporate, 750, targetID, style);
     }
 }
 
-function evaporate(targetID) {
+function evaporate(targetID, style) {
     targetID = "#" + targetID;
     // console.log("targetID: " + targetID);
     const target = document.querySelector(targetID);
@@ -143,15 +170,19 @@ function evaporate(targetID) {
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2];
-    if (cellL < 70) {
+    if (style === "classic" && cellL < 70) {
         cellL += 1;
         cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
         // console.log(cellL);
         // console.log(cellHSL);
+    } else if (style === "rainbow" && cellL > 0) {
+        cellL -= 1;
+        cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
+        target.style.backgroundColor = cellHSL;
     } else {
         // clearInterval(evapInterval);
     }
 } 
 
-createBoard(16);
+createBoard(16, "classic");

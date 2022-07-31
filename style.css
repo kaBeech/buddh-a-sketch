@@ -13,6 +13,14 @@ body {
     border-width: 16px;
 }
 
+.borderBlack {
+    border-color: hsl(120, 100%, 0%);
+}
+
+.borderGrey {
+    border-color: hsl(120, 0%, 50%);
+}
+
 .flex {
     display: flex;
 }
@@ -26,9 +34,24 @@ body {
     /* width: 5vw; */
     width: 64px;
     aspect-ratio: 1;
-    background-color: hsl(120, 0%, 70%);
     /* border-style: solid; */
     flex: 1 1 auto;
+}
+
+.grey {
+    background-color: hsl(120, 0%, 70%);
+}
+
+.black {
+    background-color: hsl(120, 100%, 0%);
+}
+
+.ltGrey {
+    background-color: hsl(120, 0%, 85%);
+}
+
+.dkGrey {
+    background-color: hsl(120, 0%, 10%);
 }
 
 .cell.active {
