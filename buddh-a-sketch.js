@@ -103,10 +103,6 @@ function createCell(parentNode, int) {
     parentNode.appendChild(div);
 }
 
-// function simpleEtch() {
-//     this.style.backgroundColor = "hsl(120, 100%, 0%)";
-// }
-
 function skEtch(targetID) {
     targetID2 = "#" + targetID;
     const target = document.querySelector(targetID2);
