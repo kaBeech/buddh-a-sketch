@@ -95,7 +95,11 @@ function createCell(parentNode, int) {
     }
     div.style.width = `${480/int}px`;
     div.addEventListener('mouseenter', function() {skEtch(cellID);});
+    div.addEventListener('touchstart', function() {skEtch(cellID);});
+    div.addEventListener('touchmove', function() {skEtch(cellID);});
     div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
+    div.addEventListener('touchstart', function() {evaporateAtInterval(cellID);});
+    div.addEventListener('touchmove', function() {evaporateAtInterval(cellID);});
     parentNode.appendChild(div);
 }
 
