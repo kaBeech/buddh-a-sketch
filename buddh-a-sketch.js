@@ -1,8 +1,11 @@
+
+
 var IDTick = 0;
 var rainbowHue = 120;
 var currentStyle = "classic";
 
 rainbowInterval = setInterval(shiftRainbow, 250);
+updateColorInterval = setInterval(updateColor, 250);
 
 function shiftRainbow() {
     if (rainbowHue < 360) {
@@ -10,6 +13,11 @@ function shiftRainbow() {
     } else if (rainbowHue === 360) {
         rainbowHue = 1;
     }
+}
+
+function updateColor() {
+    const neonBlack = document.querySelector('.neonBlack');
+    neonBlack.style.color = `hsl(${rainbowHue}, 100%, 50%)`;
 }
 
 function createBoard(int, style) {
@@ -31,10 +39,10 @@ function createBoard(int, style) {
     populateEtchGrid(int);
 }
 
-function createNewBoard() {
+function createNewBoard(style) {
     let userInt = prompt("How many cells per side?", "16");
     if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
-        createBoard(+userInt, "classic");
+        createBoard(+userInt, style);
     } else {
         alert("Please enter a whole number between 1 and 100")
     }

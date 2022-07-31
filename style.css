@@ -4,6 +4,10 @@ body {
     gap: 8px;
 }
 
+.buttonContainer {
+    gap: 1em;
+}
+
 button {
     font-size: 1.75rem;
 }
