@@ -126,11 +126,11 @@ function evaporateAtInterval(targetID) {
     let cellHSL = RGBToHSL(...cellRGB);
     let cellL = cellHSL[2];
     let newlyWet = false;
-    if (cellL >= 60) {
+    if (cellL === 60) {
         newlyWet = true;
     }
     if (newlyWet) {
-    evapInterval = setInterval(evaporate, 500, targetID);
+    evapInterval = setInterval(evaporate, 750, targetID);
     }
 }
 
