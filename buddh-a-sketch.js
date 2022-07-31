@@ -122,11 +122,12 @@ function skEtch(targetID) {
     } else if (currentStyle === "neonBlack" && cellL < 100) {
         cellH = rainbowHue;
         cellL += 10;
-    };
-    if (currentStyle === "neonBlack" && cellL == 10) {
-        cellH = rainbowHue;
         cellS = 100;
-    }
+    };
+    // if (currentStyle === "neonBlack" && cellL == 10) {
+    //     cellH = rainbowHue;
+    //     cellS = 100;
+    // }
     cellHSL = `hsl(${cellH}, ${cellS}%, ${cellL}%)`;
     // console.log(cellHSL);
     target.style.backgroundColor = cellHSL;
