@@ -1,6 +1,6 @@
 var IDTick = 0;
 
-function createEtchPadDisplay(int) {
+function createBoard(int) {
     IDTick = 0;
     const body = document.querySelector('body');
     body.classList.add('flex', 'column');
@@ -23,7 +23,7 @@ function createButton(parentNode) {
 function createNewEtchGrid() {
     let userInt = prompt("How many cells per side?", "16");
     if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
-        createEtchPadDisplay(+userInt);
+        createBoard(+userInt);
     } else {
         alert("Please enter a whole number between 1 and 100")
     }
@@ -154,4 +154,4 @@ function evaporate(targetID) {
     }
 } 
 
-createEtchPadDisplay(16);
+createBoard(16);
