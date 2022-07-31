@@ -43,8 +43,8 @@ function createNewBoard(style) {
     let userInt = prompt("How many cells per side?", "16");
     if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
         createBoard(+userInt, style);
-    } else {
-        alert("Please enter a whole number between 1 and 100")
+    } else if (userInt !== null) {
+        alert("Please enter a whole number between 1 and 100");
     }
 }
 
