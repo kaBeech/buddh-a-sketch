@@ -18,11 +18,11 @@ function createBoard(int, style) {
     const body = document.querySelector('body');
     body.classList.add('flex', 'column');
     if (currentStyle === 'classic') {
-        body.classList.add('ltGrey');
+        body.classList.add('dkIshGrey');
         body.classList.remove('dkGrey');
     } else if (currentStyle === 'rainbow') {
         body.classList.add('dkGrey');
-        body.classList.remove('ltGrey');
+        body.classList.remove('dkIshGrey');
     }
     while (body.hasChildNodes()) {
         body.removeChild(body.firstChild);
@@ -34,10 +34,11 @@ function createBoard(int, style) {
 
 function createButton(parentNode) {
     const button = document.createElement('button');
-    parentNode.appendChild(button);
+    button.classList.add('ltGrey');
     button.classList.add('button');
     button.addEventListener('click', createNewBoard);
     button.textContent = "Draw New Pad";
+    parentNode.appendChild(button);
 }
 
 function createNewBoard() {

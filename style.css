@@ -50,8 +50,12 @@ body {
     background-color: hsl(120, 0%, 85%);
 }
 
+.dkIshGrey {
+    background-color: hsl(120, 0%, 7.5%);
+}
+
 .dkGrey {
-    background-color: hsl(120, 0%, 10%);
+    background-color: hsl(120, 0%, 5%);
 }
 
 .cell.active {
