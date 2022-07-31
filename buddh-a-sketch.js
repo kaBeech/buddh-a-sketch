@@ -172,13 +172,13 @@ function evaporateAtInterval(targetID) {
         newlyWet = true;
     }
     if (newlyWet) {
-    evapInterval = setInterval(evaporate, 750, targetID);
+        target.evapInterval = setInterval(evaporate, 750, targetID);
     }
 }
 
 function evaporate(targetID) {
     targetID = "#" + targetID;
-    // console.log("targetID: " + targetID);
+    console.log("targetID: " + targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
@@ -196,7 +196,7 @@ function evaporate(targetID) {
         cellHSL = `hsl(${rainbowHue}, 100%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
     } else {
-        // clearInterval(evapInterval);
+        clearInterval(target.evapInterval);
     }
 } 
 
