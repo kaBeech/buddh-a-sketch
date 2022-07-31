@@ -7,8 +7,8 @@ rainbowInterval = setInterval(shiftRainbow, 250);
 function shiftRainbow() {
     if (rainbowHue < 360) {
         rainbowHue += 1;        
-    } else {
-        rainbowHue = 0;
+    } else if (rainbowHue === 360) {
+        rainbowHue = 1;
     }
 }
 
@@ -121,6 +121,7 @@ function skEtch(targetID, style) {
     if (style === "classic" && cellL > 0) {
         cellL -= 10;
     } else if (style === "rainbow" && cellL < 100) {
+        cellH = rainbowHue;
         cellL += 10;
     };
     if (style === "rainbow" && cellL == 10) {
