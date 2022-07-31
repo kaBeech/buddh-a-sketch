@@ -16,29 +16,19 @@ function createBoard(int, style) {
     IDTick = 0;
     currentStyle = style;
     const body = document.querySelector('body');
-    body.classList.add('flex', 'column');
     if (currentStyle === 'classic') {
         body.classList.add('dkIshGrey');
         body.classList.remove('dkGrey');
-    } else if (currentStyle === 'rainbow') {
+    } else if (currentStyle === 'neonBlack') {
         body.classList.add('dkGrey');
         body.classList.remove('dkIshGrey');
     }
-    while (body.hasChildNodes()) {
-        body.removeChild(body.firstChild);
+    const etchGrid = document.querySelector('.etchGrid');
+    while (etchGrid.hasChildNodes()) {
+        etchGrid.removeChild(etchGrid.firstChild);
     }
-    createButton(body);
     createEtchGrid(body);
     populateEtchGrid(int);
-}
-
-function createButton(parentNode) {
-    const button = document.createElement('button');
-    button.classList.add('ltGrey');
-    button.classList.add('button');
-    button.addEventListener('click', createNewBoard);
-    button.textContent = "Draw New Pad";
-    parentNode.appendChild(button);
 }
 
 function createNewBoard() {
@@ -51,16 +41,13 @@ function createNewBoard() {
 }
 
 function createEtchGrid(parentNode) {
-    const div = document.createElement('div');
-    parentNode.appendChild(div);
-    div.classList.add('etchGrid');
-    div.classList.add('flex');
+    const etchGrid = document.querySelector('.etchGrid');
     if (currentStyle === 'classic') {
-        div.classList.add('borderBlack');
-        div.classList.remove('borderGrey');
-    } else if (currentStyle === 'rainbow') {
-        div.classList.add('borderGrey');
-        div.classList.remove('borderBlack');
+        etchGrid.classList.add('borderBlack');
+        etchGrid.classList.remove('borderGrey');
+    } else if (currentStyle === 'neonBlack') {
+        etchGrid.classList.add('borderGrey');
+        etchGrid.classList.remove('borderBlack');
     }
 }
 
@@ -95,7 +82,7 @@ function createCell(parentNode, int) {
     div.classList.add('cell');
     if (currentStyle === 'classic') {
         div.style.backgroundColor = "hsl(120, 0%, 70%)";
-    } else if (currentStyle === 'rainbow') {
+    } else if (currentStyle === 'neonBlack') {
         div.style.backgroundColor = "hsl(120, 100%, 0%)";
     }
     div.style.width = `${480/int}px`;
@@ -120,11 +107,11 @@ function skEtch(targetID) {
     let cellL = cellHSL[2];
     if (currentStyle === "classic" && cellL > 0) {
         cellL -= 10;
-    } else if (currentStyle === "rainbow" && cellL < 100) {
+    } else if (currentStyle === "neonBlack" && cellL < 100) {
         cellH = rainbowHue;
         cellL += 10;
     };
-    if (currentStyle === "rainbow" && cellL == 10) {
+    if (currentStyle === "neonBlack" && cellL == 10) {
         cellH = rainbowHue;
         cellS = 100;
     }
@@ -172,7 +159,7 @@ function evaporateAtInterval(targetID) {
     let newlyWet = false;
     if (currentStyle === "classic" && cellL === 60) {
         newlyWet = true;
-    } else if (currentStyle === "rainbow" && cellL === 10) {
+    } else if (currentStyle === "neonBlack" && cellL === 10) {
         newlyWet = true;
     }
     if (newlyWet) {
@@ -195,7 +182,7 @@ function evaporate(targetID) {
         target.style.backgroundColor = cellHSL;
         // console.log(cellL);
         // console.log(cellHSL);
-    } else if (currentStyle === "rainbow" && cellL > 0) {
+    } else if (currentStyle === "neonBlack" && cellL > 0) {
         cellL -= 1;
         cellHSL = `hsl(${rainbowHue}, 100%, ${cellL}%)`;
         target.style.backgroundColor = cellHSL;
