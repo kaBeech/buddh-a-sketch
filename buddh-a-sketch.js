@@ -116,13 +116,13 @@ function skEtch(targetID) {
         cellL -= 10;
     } else if (currentStyle === "neonBlack" && cellL < 100) {
         cellH = rainbowHue;
-        cellL += 10;
         cellS = 100;
+        if (cellL === 0) {
+            cellL += 20;
+        } else {
+            cellL += 10;
+        }
     };
-    // if (currentStyle === "neonBlack" && cellL == 10) {
-    //     cellH = rainbowHue;
-    //     cellS = 100;
-    // }
     cellHSL = `hsl(${cellH}, ${cellS}%, ${cellL}%)`;
     target.style.backgroundColor = cellHSL;
 }
@@ -166,7 +166,7 @@ function evaporateAtInterval(targetID) {
     let newlyWet = false;
     if (currentStyle === "classic" && cellL === 60) {
         newlyWet = true;
-    } else if (currentStyle === "neonBlack" && cellL === 10) {
+    } else if (currentStyle === "neonBlack" && cellL === 20) {
         newlyWet = true;
     }
     if (newlyWet) {
