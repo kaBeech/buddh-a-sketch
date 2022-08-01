@@ -81,7 +81,6 @@ function populateColumnContainer(int) {
     }
 }
 
-// I will remove extra eventListeners after mobile testing
 function createCell(parentNode, int) {
     const div = document.createElement('div');
     const cellID = "ID" + ++IDTick;
@@ -94,11 +93,7 @@ function createCell(parentNode, int) {
     }
     div.style.width = `${480/int}px`;
     div.addEventListener('mouseenter', function() {skEtch(cellID);});
-    div.addEventListener('touchstart', function() {skEtch(cellID);});
-    div.addEventListener('touchmove', function() {skEtch(cellID);});
     div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
-    div.addEventListener('touchstart', function() {evaporateAtInterval(cellID);});
-    div.addEventListener('touchmove', function() {evaporateAtInterval(cellID);});
     parentNode.appendChild(div);
 }
 
@@ -156,7 +151,6 @@ function RGBToHSL(R, G, B) {
 
 function evaporateAtInterval(targetID) {
     targetID2 = "#" + targetID;
-    // console.log("targetID: " + targetID2);
     const target = document.querySelector(targetID2);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
@@ -176,7 +170,6 @@ function evaporateAtInterval(targetID) {
 
 function evaporate(targetID) {
     targetID = "#" + targetID;
-    // console.log("targetID: " + targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
