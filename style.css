@@ -32,7 +32,6 @@ button {
 .colorButtonCell {
     height: 19px;
     aspect-ratio: 1;
-    /* border-radius: 50%; */
 }
 
 .borderBlack {
@@ -53,11 +52,10 @@ button {
 
 .cell {
     box-sizing: border-box;
-    /* width: 5vw; */
     width: 64px;
     aspect-ratio: 1;
-    /* border-style: solid; */
     flex: 1 1 auto;
+    cursor: pointer;
 }
 
 .grey {
