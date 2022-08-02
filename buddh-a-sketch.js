@@ -110,12 +110,14 @@ function createBoard(int, style) {
 }
 
 function clearBoard() {
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach( function(target) {
-        clearInterval(target.evapInterval)
-    });
+
     const etchGrid = document.querySelector('.etchGrid');
     while (etchGrid.hasChildNodes()) {
+        const columnContainer = etchGrid.firstChild;
+        const cells = columnContainer.childNodes;
+        cells.forEach( function(target) {
+            clearInterval(target.evapInterval)
+        });
         etchGrid.removeChild(etchGrid.firstChild);
     }
 }
@@ -194,9 +196,9 @@ function skEtch(targetID) {
     cellHSL = `hsl(${target.hue}, ${target.saturation}%, ${target.lightness}%)`;
     target.style.backgroundColor = cellHSL;
     if (currentStyle === "classic" && target.lightness === 60) {
-        target.evapInterval = setInterval(evaporate, 750, targetID);
+        target.evapInterval = setInterval(evaporate, evaporateRate, targetID);
     } else if (currentStyle === "neonBlack" && target.lightness === 20) {
-        target.evapInterval = setInterval(evaporate, 750, targetID);
+        target.evapInterval = setInterval(evaporate, evaporateRate, targetID);
     }
 }
 
@@ -229,7 +231,7 @@ function RGBToHSL(R, G, B) {
 
 
 function evaporate(targetID) {
-    // console.log(targetID)
+    console.log(targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
