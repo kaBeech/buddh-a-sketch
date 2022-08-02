@@ -1,9 +1,13 @@
 var IDTick = 0;
 var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
+var colorStyle = "monochrome";
 
 rainbowInterval = setInterval(shiftRainbow, 250);
-updateColorInterval = setInterval(updateColor, 250);
+setInterval(updateNeonBlackButton, 250);
+setInterval(updateMonochromeButton, 250);
+setInterval(updateHeterochromeButton, 250);
+
 
 function shiftRainbow() {
     if (rainbowHue < 360) {
@@ -13,9 +17,38 @@ function shiftRainbow() {
     }
 }
 
-function updateColor() {
-    const neonBlack = document.querySelector('.neonBlack');
-    neonBlack.style.color = `hsl(${rainbowHue}, 100%, 50%)`;
+function updateNeonBlackButton() {
+    const neonBlackButton = document.querySelector('.neonBlackButton');
+    neonBlackButton.style.color = `hsl(${rainbowHue}, 100%, 50%)`;
+}
+
+function updateMonochromeButton() {
+    if (currentStyle === 'neonBlack' && colorStyle === "monochrome") {
+    const colorButton = document.querySelector('#colorButton');
+    colorButton.style.backgroundColor = `hsl(${rainbowHue}, 100%, 50%)`;
+    }
+}
+
+function updateHeterochromeButton() {
+    if (currentStyle === 'neonBlack' && colorStyle === "heterochrome") {
+    const colorButtonUL = document.querySelector('#colorButtonUL');
+    const colorButtonUR = document.querySelector('#colorButtonUR');
+    const colorButtonLR = document.querySelector('#colorButtonLR');
+    const colorButtonLL = document.querySelector('#colorButtonLL');
+    colorButtonUL.style.backgroundColor = `hsl(${rainbowHue}, 90%, 47%)`;
+    colorButtonUR.style.backgroundColor = `hsl(${rainbowHue + 330}, 90%, 47%)`;
+    colorButtonLR.style.backgroundColor = `hsl(${rainbowHue + 300}, 90%, 47%)`;
+    colorButtonLL.style.backgroundColor = `hsl(${rainbowHue + 270}, 90%, 47%)`;
+    }
+}
+
+function toggleColorStyle() {
+    if (colorStyle === "monochrome") {
+        colorStyle = "heterochrome"
+    } else if (colorStyle === "heterochrome") {
+        colorStyle = "monochrome"
+    }
+    colorButton();
 }
 
 function createNewBoard(style) {
@@ -44,6 +77,35 @@ function createBoard(int, style) {
     }
     createEtchGrid(body);
     populateEtchGrid(int);
+    colorButton();
+}
+
+function colorButton() {
+    const colorButton = document.querySelector('#colorButton');
+    const colorButtonUL = document.querySelector('#colorButtonUL');
+    const colorButtonUR = document.querySelector('#colorButtonUR');
+    const colorButtonLR = document.querySelector('#colorButtonLR');
+    const colorButtonLL = document.querySelector('#colorButtonLL');
+    if (currentStyle === 'classic') {
+        colorButton.classList.add('borderBlack');
+        colorButton.classList.remove('borderGrey');
+        colorButton.style.backgroundColor = "hsl(120, 0%, 70%)";
+        colorButtonUL.style.backgroundColor = "transparent";
+        colorButtonUR.style.backgroundColor = "transparent";
+        colorButtonLR.style.backgroundColor = "transparent";
+        colorButtonLL.style.backgroundColor = "transparent";
+    } else if (currentStyle === 'neonBlack' && colorStyle === "monochrome") {
+        colorButton.classList.add('borderGrey');
+        colorButton.classList.remove('borderBlack');
+        colorButtonUL.style.backgroundColor = "transparent";
+        colorButtonUR.style.backgroundColor = "transparent";
+        colorButtonLR.style.backgroundColor = "transparent";
+        colorButtonLL.style.backgroundColor = "transparent";
+    } else if (currentStyle === 'neonBlack' && colorStyle === "heterochrome") {
+        colorButton.classList.add('borderGrey');
+        colorButton.classList.remove('borderBlack');
+        colorButton.style.backgroundColor = "hsl(120, 0%, 0%)";
+    }     
 }
 
 function createEtchGrid(parentNode) {
@@ -103,25 +165,25 @@ function skEtch(targetID) {
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
-    let cellH = cellHSL[0];
-    let cellS = cellHSL[1];
-    let cellL = cellHSL[2];
-    if (currentStyle === "classic" && cellL > 0) {
-        cellL -= 10;
-    } else if (currentStyle === "neonBlack" && cellL < 100) {
-        cellH = rainbowHue;
-        cellS = 100;
-        if (cellL === 0) {
-            cellL += 20;
+    target.hue = cellHSL[0];
+    target.saturation = cellHSL[1];
+    target.lightness = cellHSL[2];
+    if (currentStyle === "classic" && target.lightness > 0) {
+        target.lightness -= 10;
+    } else if (currentStyle === "neonBlack" && target.lightness < 100) {
+        target.hue = rainbowHue;
+        target.saturation = 100;
+        if (target.lightness === 0) {
+            target.lightness += 20;
         } else {
-            cellL += 10;
+            target.lightness += 10;
         }
     };
-    cellHSL = `hsl(${cellH}, ${cellS}%, ${cellL}%)`;
+    cellHSL = `hsl(${target.hue}, ${target.saturation}%, ${target.lightness}%)`;
     target.style.backgroundColor = cellHSL;
-    if (currentStyle === "classic" && cellL === 60) {
+    if (currentStyle === "classic" && target.lightness === 60) {
         target.evapInterval = setInterval(evaporate, 750, targetID);
-    } else if (currentStyle === "neonBlack" && cellL === 20) {
+    } else if (currentStyle === "neonBlack" && target.lightness === 20) {
         target.evapInterval = setInterval(evaporate, 750, targetID);
     }
 }
@@ -161,18 +223,22 @@ function evaporate(targetID) {
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
-    let cellL = cellHSL[2];
-    if (currentStyle === "classic" && cellL < 70) {
-        cellL += 1;
-        cellHSL = `hsl(${cellHSL[0]}, 0%, ${cellL}%)`;
+    target.lightness = cellHSL[2];
+    if (currentStyle === "classic" && target.lightness < 70) {
+        target.lightness += 1;
+        cellHSL = `hsl(${cellHSL[0]}, 0%, ${target.lightness}%)`;
         target.style.backgroundColor = cellHSL;
-    } else if (currentStyle === "neonBlack" && cellL > 0) {
-        cellL -= 1;
-        cellHSL = `hsl(${rainbowHue}, 100%, ${cellL}%)`;
+    } else if (currentStyle === "neonBlack" && target.lightness > 0) {
+        target.lightness -= 1;
+        if (colorStyle === "monochrome") {
+            cellHSL = `hsl(${rainbowHue}, 100%, ${target.lightness}%)`;
+        } else if (colorStyle === "heterochrome") {
+            cellHSL = `hsl(${target.hue}, 100%, ${target.lightness}%)`;
+        }
         target.style.backgroundColor = cellHSL;
     } else {
         clearInterval(target.evapInterval);
     }
-} 
+}
 
-createBoard(16, "classic");
+createBoard(16, currentStyle);

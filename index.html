@@ -10,8 +10,18 @@
 </head>
 <body class="flex column">
     <div class="buttonContainer flex">
-        <button class="classic ltGrey" onclick="createNewBoard('classic')">New Pad</button>
-        <button class="neonBlack black" onclick="createNewBoard('neonBlack')">New Pad</button>
+        <button class="classic ltGrey linkCursor" onclick="createNewBoard('classic')">New Pad</button>
+        <div id="colorButton" class="monochrome flex linkCursor" onclick="toggleColorStyle()">
+            <div class="flex column">
+                <div id="colorButtonUL" class="colorButtonCell"></div>
+                <div id="colorButtonLL" class="colorButtonCell"></div>
+            </div>
+            <div class="flex column">
+                <div id="colorButtonUR" class="colorButtonCell"></div>
+                <div id="colorButtonLR" class="colorButtonCell"></div>
+            </div>
+        </div>
+        <button class="neonBlackButton black linkCursor" onclick="createNewBoard('neonBlack')">New Pad</button>
     </div>
     <div class="etchGrid flex">
 

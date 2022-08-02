@@ -6,6 +6,11 @@ body {
 
 .buttonContainer {
     gap: 1em;
+    align-items: stretch;
+}
+
+.linkCursor {
+    cursor: pointer;
 }
 
 button {
@@ -15,6 +20,19 @@ button {
 .etchGrid {
     border-style: solid;
     border-width: 16px;
+}
+
+#colorButton {
+    border-style: solid;
+    border-width: 4px;
+    height: 38px;
+    aspect-ratio: 1;
+}
+
+.colorButtonCell {
+    height: 19px;
+    aspect-ratio: 1;
+    /* border-radius: 50%; */
 }
 
 .borderBlack {
