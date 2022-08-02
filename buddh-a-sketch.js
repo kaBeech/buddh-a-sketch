@@ -1,4 +1,5 @@
 var IDTick = 0;
+var evaporateRate = 750;
 var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
 var colorStyle = "monochrome";
@@ -64,6 +65,7 @@ function createNewBoard(style) {
 
 function createBoard(int, style) {
     IDTick = 0;
+    evaporateRate = Math.round(int * 46.875);
     currentStyle = style;
     const body = document.querySelector('body');
     if (currentStyle === 'classic') {
@@ -73,13 +75,32 @@ function createBoard(int, style) {
         body.classList.add('dkGrey');
         body.classList.remove('dkIshGrey');
     }
-    const etchGrid = document.querySelector('.etchGrid');
-    while (etchGrid.hasChildNodes()) {
-        etchGrid.removeChild(etchGrid.firstChild);
-    }
+    clearBoard();
     createEtchGrid(body);
     populateEtchGrid(int);
     colorButton();
+}
+
+function clearBoard() {
+    const etchGrid = document.querySelector('.etchGrid');
+    while (etchGrid.hasChildNodes()) {
+        // const columnContainer = etchGrid.firstElementChild;
+        // while (columnContainer.hasChildNodes()) {
+        //     const target = columnContainer.firstElementChild;
+        //     let cellStyle = window.getComputedStyle(target);
+        //     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
+        //     cellRGB = cellRGB.split(",");
+        //     let cellHSL = RGBToHSL(...cellRGB);
+        //     target.lightness = cellHSL[2];
+        //     if (style === "classic" && target.lightness !== 70) {
+        //         clearInterval(target.evapInterval);
+        //     } else if (style === "neonBlack" && target.lightness !== 0) {
+        //         clearInterval(target.evapInterval);
+        //     }
+        //     columnContainer.removeChild(columnContainer.firstChild);
+        // }
+        etchGrid.removeChild(etchGrid.firstChild);
+    }
 }
 
 function colorButton() {
@@ -161,8 +182,8 @@ function createCell(parentNode, int) {
 }
 
 function skEtch(targetID) {
-    targetID2 = "#" + targetID;
-    const target = document.querySelector(targetID2);
+    targetID = "#" + targetID;
+    const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
@@ -219,7 +240,7 @@ function RGBToHSL(R, G, B) {
 
 
 function evaporate(targetID) {
-    targetID = "#" + targetID;
+    // console.log(targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
