@@ -93,7 +93,6 @@ function createCell(parentNode, int) {
     }
     div.style.width = `${480/int}px`;
     div.addEventListener('mouseenter', function() {skEtch(cellID);});
-    div.addEventListener('mouseenter', function() {evaporateAtInterval(cellID);});
     parentNode.appendChild(div);
 }
 
@@ -175,31 +174,5 @@ function evaporate(targetID) {
         clearInterval(target.evapInterval);
     }
 } 
-
-function paint(targetID) {
-    targetID2 = "#" + targetID;
-    const target = document.querySelector(targetID2);
-    let cellStyle = window.getComputedStyle(target);
-    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
-    cellRGB = cellRGB.split(",");
-    let cellHSL = RGBToHSL(...cellRGB);
-    let cellH = cellHSL[0];
-    let cellS = cellHSL[1];
-    let cellL = cellHSL[2];
-    if (currentStyle === "classic") {
-        cellL = 0;
-    } else if (currentStyle === "neonBlack" && cellL < 50) {
-        cellH = rainbowHue;
-        cellS = 100;
-        cellL = 50;
-    };
-    cellHSL = `hsl(${cellH}, ${cellS}%, ${cellL}%)`;
-    target.style.backgroundColor = cellHSL;
-    if (currentStyle === "classic" && cellL === 100) {
-        target.evapInterval = setInterval(evaporate, 750, targetID);
-    } else if (currentStyle === "neonBlack" && cellL === 50) {
-        target.evapInterval = setInterval(evaporate, 750, targetID);
-    }
-}
 
 createBoard(16, "classic");
