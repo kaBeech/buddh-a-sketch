@@ -82,23 +82,10 @@ function createBoard(int, style) {
 }
 
 function clearBoard() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach( function(node) {clearInterval(node.evapInterval)});
     const etchGrid = document.querySelector('.etchGrid');
     while (etchGrid.hasChildNodes()) {
-        // const columnContainer = etchGrid.firstElementChild;
-        // while (columnContainer.hasChildNodes()) {
-        //     const target = columnContainer.firstElementChild;
-        //     let cellStyle = window.getComputedStyle(target);
-        //     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
-        //     cellRGB = cellRGB.split(",");
-        //     let cellHSL = RGBToHSL(...cellRGB);
-        //     target.lightness = cellHSL[2];
-        //     if (style === "classic" && target.lightness !== 70) {
-        //         clearInterval(target.evapInterval);
-        //     } else if (style === "neonBlack" && target.lightness !== 0) {
-        //         clearInterval(target.evapInterval);
-        //     }
-        //     columnContainer.removeChild(columnContainer.firstChild);
-        // }
         etchGrid.removeChild(etchGrid.firstChild);
     }
 }
@@ -242,6 +229,7 @@ function RGBToHSL(R, G, B) {
 function evaporate(targetID) {
     // console.log(targetID);
     const target = document.querySelector(targetID);
+    console.log(typeof(target))
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
