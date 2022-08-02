@@ -111,7 +111,9 @@ function createBoard(int, style) {
 
 function clearBoard() {
     const cells = document.querySelectorAll(".cell");
-    cells.forEach( function(node) {clearInterval(node.evapInterval)});
+    cells.forEach( function(target) {
+        clearInterval(target.evapInterval)
+    });
     const etchGrid = document.querySelector('.etchGrid');
     while (etchGrid.hasChildNodes()) {
         etchGrid.removeChild(etchGrid.firstChild);
@@ -227,6 +229,7 @@ function RGBToHSL(R, G, B) {
 
 
 function evaporate(targetID) {
+    // console.log(targetID)
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
