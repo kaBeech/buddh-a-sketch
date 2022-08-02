@@ -43,10 +43,12 @@ function updateHeterochromeButton() {
 }
 
 function toggleColorStyle() {
-    if (colorStyle === "monochrome") {
-        colorStyle = "heterochrome"
+    if (currentStyle === "classic") {
+        alert("Try using this button on the Neon Black board");
+    } else if (colorStyle === "monochrome") {
+        colorStyle = "heterochrome";
     } else if (colorStyle === "heterochrome") {
-        colorStyle = "monochrome"
+        colorStyle = "monochrome";
     }
     colorButton();
 }
