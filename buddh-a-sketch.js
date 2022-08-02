@@ -54,6 +54,34 @@ function toggleColorStyle() {
     colorButton();
 }
 
+function colorButton() {
+    const colorButton = document.querySelector('#colorButton');
+    const colorButtonUL = document.querySelector('#colorButtonUL');
+    const colorButtonUR = document.querySelector('#colorButtonUR');
+    const colorButtonLR = document.querySelector('#colorButtonLR');
+    const colorButtonLL = document.querySelector('#colorButtonLL');
+    if (currentStyle === 'classic') {
+        colorButton.classList.add('borderBlack');
+        colorButton.classList.remove('borderGrey');
+        colorButton.style.backgroundColor = "hsl(120, 0%, 70%)";
+        colorButtonUL.style.backgroundColor = "transparent";
+        colorButtonUR.style.backgroundColor = "transparent";
+        colorButtonLR.style.backgroundColor = "transparent";
+        colorButtonLL.style.backgroundColor = "transparent";
+    } else if (currentStyle === 'neonBlack' && colorStyle === "monochrome") {
+        colorButton.classList.add('borderGrey');
+        colorButton.classList.remove('borderBlack');
+        colorButtonUL.style.backgroundColor = "transparent";
+        colorButtonUR.style.backgroundColor = "transparent";
+        colorButtonLR.style.backgroundColor = "transparent";
+        colorButtonLL.style.backgroundColor = "transparent";
+    } else if (currentStyle === 'neonBlack' && colorStyle === "heterochrome") {
+        colorButton.classList.add('borderGrey');
+        colorButton.classList.remove('borderBlack');
+        colorButton.style.backgroundColor = "hsl(120, 0%, 0%)";
+    }     
+}
+
 function createNewBoard(style) {
     let userInt = prompt("How many cells per side?", "16");
     if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
@@ -88,34 +116,6 @@ function clearBoard() {
     while (etchGrid.hasChildNodes()) {
         etchGrid.removeChild(etchGrid.firstChild);
     }
-}
-
-function colorButton() {
-    const colorButton = document.querySelector('#colorButton');
-    const colorButtonUL = document.querySelector('#colorButtonUL');
-    const colorButtonUR = document.querySelector('#colorButtonUR');
-    const colorButtonLR = document.querySelector('#colorButtonLR');
-    const colorButtonLL = document.querySelector('#colorButtonLL');
-    if (currentStyle === 'classic') {
-        colorButton.classList.add('borderBlack');
-        colorButton.classList.remove('borderGrey');
-        colorButton.style.backgroundColor = "hsl(120, 0%, 70%)";
-        colorButtonUL.style.backgroundColor = "transparent";
-        colorButtonUR.style.backgroundColor = "transparent";
-        colorButtonLR.style.backgroundColor = "transparent";
-        colorButtonLL.style.backgroundColor = "transparent";
-    } else if (currentStyle === 'neonBlack' && colorStyle === "monochrome") {
-        colorButton.classList.add('borderGrey');
-        colorButton.classList.remove('borderBlack');
-        colorButtonUL.style.backgroundColor = "transparent";
-        colorButtonUR.style.backgroundColor = "transparent";
-        colorButtonLR.style.backgroundColor = "transparent";
-        colorButtonLL.style.backgroundColor = "transparent";
-    } else if (currentStyle === 'neonBlack' && colorStyle === "heterochrome") {
-        colorButton.classList.add('borderGrey');
-        colorButton.classList.remove('borderBlack');
-        colorButton.style.backgroundColor = "hsl(120, 0%, 0%)";
-    }     
 }
 
 function createEtchGrid(parentNode) {

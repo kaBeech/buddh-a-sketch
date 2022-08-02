@@ -4,6 +4,14 @@ body {
     gap: 8px;
 }
 
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
 .buttonContainer {
     gap: 1em;
     align-items: stretch;
@@ -15,11 +23,6 @@ body {
 
 button {
     font-size: 1.75rem;
-}
-
-.etchGrid {
-    border-style: solid;
-    border-width: 16px;
 }
 
 #colorButton {
@@ -42,12 +45,9 @@ button {
     border-color: hsl(120, 0%, 50%);
 }
 
-.flex {
-    display: flex;
-}
-
-.column {
-    flex-direction: column;
+.etchGrid {
+    border-style: solid;
+    border-width: 16px;
 }
 
 .cell {
@@ -76,8 +76,4 @@ button {
 
 .dkGrey {
     background-color: hsl(120, 0%, 5%);
-}
-
-.cell.active {
-    background-color: hsl(120, 0%, 0%);
 }
