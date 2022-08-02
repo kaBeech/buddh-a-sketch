@@ -228,7 +228,6 @@ function RGBToHSL(R, G, B) {
 
 function evaporate(targetID) {
     const target = document.querySelector(targetID);
-    console.log(typeof(target))
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
