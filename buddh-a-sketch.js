@@ -93,7 +93,12 @@ function createNewBoard(style) {
 
 function createBoard(int, style) {
     IDTick = 0;
-    evaporationRate = Math.round(int * 46.875);
+    if (int < 16) {
+        evaporationRate = Math.round(int * 46.875);
+    } else {
+        evaporationRate = Math.round(int * int / 16 * 46.875);
+    }
+    console.log(evaporationRate);
     currentStyle = style;
     const body = document.querySelector('body');
     if (currentStyle === 'classic') {
