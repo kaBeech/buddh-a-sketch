@@ -1,5 +1,5 @@
 var IDTick = 0;
-var evaporateRate = 750;
+var evaporationRate = 750;
 var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
 var colorStyle = "monochrome";
@@ -93,7 +93,7 @@ function createNewBoard(style) {
 
 function createBoard(int, style) {
     IDTick = 0;
-    evaporateRate = Math.round(int * 46.875);
+    evaporationRate = Math.round(int * 46.875);
     currentStyle = style;
     const body = document.querySelector('body');
     if (currentStyle === 'classic') {
@@ -196,9 +196,9 @@ function skEtch(targetID) {
     cellHSL = `hsl(${target.hue}, ${target.saturation}%, ${target.lightness}%)`;
     target.style.backgroundColor = cellHSL;
     if (currentStyle === "classic" && target.lightness === 60) {
-        target.evapInterval = setInterval(evaporate, evaporateRate, targetID);
+        target.evapInterval = setInterval(evaporate, evaporationRate, targetID);
     } else if (currentStyle === "neonBlack" && target.lightness === 20) {
-        target.evapInterval = setInterval(evaporate, evaporateRate, targetID);
+        target.evapInterval = setInterval(evaporate, evaporationRate, targetID);
     }
 }
 
