@@ -1,38 +1,141 @@
+var IDTick = 0;
+var evaporationRate = 750;
+var rainbowHue = Math.floor(Math.random() * 360);
+var currentStyle = "classic";
+var colorStyle = "monochrome";
+
+rainbowInterval = setInterval(shiftRainbow, 250);
+setInterval(updateNeonBlackButton, 250);
+setInterval(updateMonochromeButton, 250);
+setInterval(updateHeterochromeButton, 250);
 
 
-function createEtchPadDisplay(int) {
-    const body = document.querySelector('body');
-    body.classList.add('flex', 'column');
-    while (body.hasChildNodes()) {
-        body.removeChild(body.firstChild);
+function shiftRainbow() {
+    if (rainbowHue < 360) {
+        rainbowHue += 1;        
+    } else if (rainbowHue === 360) {
+        rainbowHue = 1;
     }
-    createButton(body);
-    createEtchGrid(body);
-    populateEtchGrid(int);
 }
 
-function createButton(parentNode) {
-    const button = document.createElement('button');
-    parentNode.appendChild(button);
-    button.classList.add('button');
-    button.addEventListener('click', createNewEtchGrid);
-    button.textContent = "Draw New Pad";
+function updateNeonBlackButton() {
+    const neonBlackButton = document.querySelector('.neonBlackButton');
+    neonBlackButton.style.color = `hsl(${rainbowHue}, 100%, 50%)`;
 }
 
-function createNewEtchGrid() {
+function updateMonochromeButton() {
+    if (currentStyle === 'neonBlack' && colorStyle === "monochrome") {
+    const colorButton = document.querySelector('#colorButton');
+    colorButton.style.backgroundColor = `hsl(${rainbowHue}, 100%, 50%)`;
+    }
+}
+
+function updateHeterochromeButton() {
+    if (currentStyle === 'neonBlack' && colorStyle === "heterochrome") {
+    const colorButtonUL = document.querySelector('#colorButtonUL');
+    const colorButtonUR = document.querySelector('#colorButtonUR');
+    const colorButtonLR = document.querySelector('#colorButtonLR');
+    const colorButtonLL = document.querySelector('#colorButtonLL');
+    colorButtonUL.style.backgroundColor = `hsl(${rainbowHue}, 90%, 47%)`;
+    colorButtonUR.style.backgroundColor = `hsl(${rainbowHue + 330}, 90%, 47%)`;
+    colorButtonLR.style.backgroundColor = `hsl(${rainbowHue + 300}, 90%, 47%)`;
+    colorButtonLL.style.backgroundColor = `hsl(${rainbowHue + 270}, 90%, 47%)`;
+    }
+}
+
+function toggleColorStyle() {
+    if (currentStyle === "classic") {
+        alert("Try using this button on the Neon Black board");
+    } else if (colorStyle === "monochrome") {
+        colorStyle = "heterochrome";
+    } else if (colorStyle === "heterochrome") {
+        colorStyle = "monochrome";
+    }
+    colorButton();
+}
+
+function colorButton() {
+    const colorButton = document.querySelector('#colorButton');
+    const colorButtonUL = document.querySelector('#colorButtonUL');
+    const colorButtonUR = document.querySelector('#colorButtonUR');
+    const colorButtonLR = document.querySelector('#colorButtonLR');
+    const colorButtonLL = document.querySelector('#colorButtonLL');
+    if (currentStyle === 'classic') {
+        colorButton.classList.add('borderBlack');
+        colorButton.classList.remove('borderGrey');
+        colorButton.style.backgroundColor = "hsl(120, 0%, 70%)";
+        colorButtonUL.style.backgroundColor = "transparent";
+        colorButtonUR.style.backgroundColor = "transparent";
+        colorButtonLR.style.backgroundColor = "transparent";
+        colorButtonLL.style.backgroundColor = "transparent";
+    } else if (currentStyle === 'neonBlack' && colorStyle === "monochrome") {
+        colorButton.classList.add('borderGrey');
+        colorButton.classList.remove('borderBlack');
+        colorButtonUL.style.backgroundColor = "transparent";
+        colorButtonUR.style.backgroundColor = "transparent";
+        colorButtonLR.style.backgroundColor = "transparent";
+        colorButtonLL.style.backgroundColor = "transparent";
+    } else if (currentStyle === 'neonBlack' && colorStyle === "heterochrome") {
+        colorButton.classList.add('borderGrey');
+        colorButton.classList.remove('borderBlack');
+        colorButton.style.backgroundColor = "hsl(120, 0%, 0%)";
+    }     
+}
+
+function createNewBoard(style) {
     let userInt = prompt("How many cells per side?", "16");
     if (+userInt % 1 === 0 && +userInt > 0 && userInt <= 100) {
-        createEtchPadDisplay(+userInt);
+        createBoard(+userInt, style);
+    } else if (userInt !== null) {
+        alert("Please enter a whole number between 1 and 100");
+    }
+}
+
+function createBoard(int, style) {
+    IDTick = 0;
+    if (int < 16) {
+        evaporationRate = Math.round(int * 46.875);
     } else {
-        alert("Please enter a whole number between 1 and 100")
+        evaporationRate = Math.round(int * int / 16 * 46.875);
+    }
+    console.log(evaporationRate);
+    currentStyle = style;
+    const body = document.querySelector('body');
+    if (currentStyle === 'classic') {
+        body.classList.add('dkIshGrey');
+        body.classList.remove('dkGrey');
+    } else if (currentStyle === 'neonBlack') {
+        body.classList.add('dkGrey');
+        body.classList.remove('dkIshGrey');
+    }
+    clearBoard();
+    createEtchGrid(body);
+    populateEtchGrid(int);
+    colorButton();
+}
+
+function clearBoard() {
+
+    const etchGrid = document.querySelector('.etchGrid');
+    while (etchGrid.hasChildNodes()) {
+        const columnContainer = etchGrid.firstChild;
+        const cells = columnContainer.childNodes;
+        cells.forEach( function(target) {
+            clearInterval(target.evapInterval)
+        });
+        etchGrid.removeChild(etchGrid.firstChild);
     }
 }
 
 function createEtchGrid(parentNode) {
-    const div = document.createElement('div');
-    parentNode.appendChild(div);
-    div.classList.add('etchGrid');
-    div.classList.add('flex');
+    const etchGrid = document.querySelector('.etchGrid');
+    if (currentStyle === 'classic') {
+        etchGrid.classList.add('borderBlack');
+        etchGrid.classList.remove('borderGrey');
+    } else if (currentStyle === 'neonBlack') {
+        etchGrid.classList.add('borderGrey');
+        etchGrid.classList.remove('borderBlack');
+    }
 }
 
 function populateEtchGrid(int) {
@@ -45,10 +148,10 @@ function populateEtchGrid(int) {
 
 function createColumnContainer(parentNode) {
     const div = document.createElement('div');
-    parentNode.appendChild(div);
     div.classList.add('columnContainer');
     div.classList.add('flex');
     div.classList.add('column');
+    parentNode.appendChild(div);
 }
 
 function populateColumnContainer(int) {
@@ -61,28 +164,47 @@ function populateColumnContainer(int) {
 
 function createCell(parentNode, int) {
     const div = document.createElement('div');
-    parentNode.appendChild(div);
+    const cellID = "ID" + ++IDTick;
+    div.setAttribute('id', cellID)
     div.classList.add('cell');
+    if (currentStyle === 'classic') {
+        div.style.backgroundColor = "hsl(120, 0%, 70%)";
+    } else if (currentStyle === 'neonBlack') {
+        div.style.backgroundColor = "hsl(120, 100%, 0%)";
+    }
     div.style.width = `${480/int}px`;
-    div.addEventListener('mouseenter', skEtch);
+    div.addEventListener('mouseenter', function() {skEtch(cellID);});
+    parentNode.appendChild(div);
 }
 
-function simpleEtch() {
-    this.classList.add('active');
-}
-
-function skEtch() {
-    let cellStyle = window.getComputedStyle(this);
+function skEtch(targetID) {
+    targetID = "#" + targetID;
+    const target = document.querySelector(targetID);
+    let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
     let cellHSL = RGBToHSL(...cellRGB);
-    let cellL = cellHSL[2]
-    if (cellL > 0) {
-        cellL -= 7;
+    target.hue = cellHSL[0];
+    target.saturation = cellHSL[1];
+    target.lightness = cellHSL[2];
+    if (currentStyle === "classic" && target.lightness > 0) {
+        target.lightness -= 10;
+    } else if (currentStyle === "neonBlack" && target.lightness < 100) {
+        target.hue = rainbowHue;
+        target.saturation = 100;
+        if (target.lightness === 0) {
+            target.lightness += 20;
+        } else {
+            target.lightness += 10;
+        }
+    };
+    cellHSL = `hsl(${target.hue}, ${target.saturation}%, ${target.lightness}%)`;
+    target.style.backgroundColor = cellHSL;
+    if (currentStyle === "classic" && target.lightness === 60) {
+        target.evapInterval = setInterval(evaporate, evaporationRate, targetID);
+    } else if (currentStyle === "neonBlack" && target.lightness === 20) {
+        target.evapInterval = setInterval(evaporate, evaporationRate, targetID);
     }
-    cellHSL = `hsl(${cellHSL[0]}, ${cellHSL[1]}%, ${cellL}%)`;
-    console.log(cellHSL);
-    this.style.backgroundColor = cellHSL;
 }
 
 function RGBToHSL(R, G, B) {
@@ -106,10 +228,36 @@ function RGBToHSL(R, G, B) {
     H = Math.round(H * 60)
     };
     L = (cMax + cMin) / 2;
-    S = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    S = delta == 0 ? 0 : delta / (1 - Math.abs(2 * L - 1));
     S = +(S * 100).toFixed(0);
     L = +(L * 100).toFixed(0);
     return [H, S, L];
 }
 
-createEtchPadDisplay(16);
+
+function evaporate(targetID) {
+    // console.log(targetID);
+    const target = document.querySelector(targetID);
+    let cellStyle = window.getComputedStyle(target);
+    let cellRGB = cellStyle.backgroundColor.slice(4, -1);
+    cellRGB = cellRGB.split(",");
+    let cellHSL = RGBToHSL(...cellRGB);
+    target.lightness = cellHSL[2];
+    if (currentStyle === "classic" && target.lightness < 70) {
+        target.lightness += 1;
+        cellHSL = `hsl(${cellHSL[0]}, 0%, ${target.lightness}%)`;
+        target.style.backgroundColor = cellHSL;
+    } else if (currentStyle === "neonBlack" && target.lightness > 0) {
+        target.lightness -= 1;
+        if (colorStyle === "monochrome") {
+            cellHSL = `hsl(${rainbowHue}, 100%, ${target.lightness}%)`;
+        } else if (colorStyle === "heterochrome") {
+            cellHSL = `hsl(${target.hue}, 100%, ${target.lightness}%)`;
+        }
+        target.style.backgroundColor = cellHSL;
+    } else {
+        clearInterval(target.evapInterval);
+    }
+}
+
+createBoard(16, currentStyle);

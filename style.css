@@ -4,15 +4,6 @@ body {
     gap: 8px;
 }
 
-.button {
-    font-size: 1.75rem;
-}
-
-.etchGrid {
-    border-style: solid;
-    border-width: 16px;
-}
-
 .flex {
     display: flex;
 }
@@ -21,16 +12,68 @@ body {
     flex-direction: column;
 }
 
-.cell {
-    box-sizing: border-box;
-    /* width: 5vw; */
-    width: 64px;
-    aspect-ratio: 1;
-    background-color: hsl(120, 0%, 70%);
-    /* border-style: solid; */
-    flex: 1 1 auto;
+.buttonContainer {
+    gap: 1em;
+    align-items: stretch;
 }
 
-.cell.active {
-    background-color: hsl(120, 0%, 0%);
+.linkCursor {
+    cursor: pointer;
+}
+
+button {
+    font-size: 1.75rem;
+}
+
+#colorButton {
+    border-style: solid;
+    border-width: 4px;
+    height: 38px;
+    aspect-ratio: 1;
+}
+
+.colorButtonCell {
+    height: 19px;
+    aspect-ratio: 1;
+}
+
+.borderBlack {
+    border-color: hsl(120, 100%, 0%);
+}
+
+.borderGrey {
+    border-color: hsl(120, 0%, 50%);
+}
+
+.etchGrid {
+    border-style: solid;
+    border-width: 16px;
+}
+
+.cell {
+    box-sizing: border-box;
+    width: 64px;
+    aspect-ratio: 1;
+    flex: 1 1 auto;
+    cursor: pointer;
+}
+
+.grey {
+    background-color: hsl(120, 0%, 70%);
+}
+
+.black {
+    background-color: hsl(120, 100%, 0%);
+}
+
+.ltGrey {
+    background-color: hsl(120, 0%, 85%);
+}
+
+.dkIshGrey {
+    background-color: hsl(120, 0%, 7.5%);
+}
+
+.dkGrey {
+    background-color: hsl(120, 0%, 5%);
 }

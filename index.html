@@ -8,7 +8,23 @@
     <script src="./buddh-a-sketch.js" defer></script>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
-    
+<body class="flex column">
+    <div class="buttonContainer flex">
+        <button class="classic ltGrey linkCursor" onclick="createNewBoard('classic')">New Pad</button>
+        <div id="colorButton" class="monochrome flex linkCursor" onclick="toggleColorStyle()">
+            <div class="flex column">
+                <div id="colorButtonUL" class="colorButtonCell"></div>
+                <div id="colorButtonLL" class="colorButtonCell"></div>
+            </div>
+            <div class="flex column">
+                <div id="colorButtonUR" class="colorButtonCell"></div>
+                <div id="colorButtonLR" class="colorButtonCell"></div>
+            </div>
+        </div>
+        <button class="neonBlackButton black linkCursor" onclick="createNewBoard('neonBlack')">New Pad</button>
+    </div>
+    <div class="etchGrid flex">
+
+    </div>
 </body>
 </html>
