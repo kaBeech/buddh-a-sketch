@@ -148,10 +148,10 @@ function populateEtchGrid(int) {
 
 function createColumnContainer(parentNode) {
     const div = document.createElement('div');
-    parentNode.appendChild(div);
     div.classList.add('columnContainer');
     div.classList.add('flex');
     div.classList.add('column');
+    parentNode.appendChild(div);
 }
 
 function populateColumnContainer(int) {
