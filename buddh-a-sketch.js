@@ -1,7 +1,16 @@
+// Used for naming each cell of the etchGrid
 var cellIDTick = 0;
+
+// How fast the 'paint' evaporates. 1000 makes it get evaporate 
+// one unit per second. 500 makes one unit per half second.
 var evaporationRate = 750;
+
 var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
+
+// Monochrome keeps all painted cells on the screen the same
+// hue. When set to heterochrome, cells will retain the hue
+// they were originally painted with.
 var colorStyle = "monochrome";
 
 rainbowInterval = setInterval(shiftRainbow, 250);
@@ -118,8 +127,8 @@ function clearBoard() {
 
     const etchGrid = document.querySelector('.etchGrid');
     while (etchGrid.hasChildNodes()) {
-        const columnContainer = etchGrid.firstChild;
-        const cells = columnContainer.childNodes;
+        const etchColumns = etchGrid.firstChild;
+        const cells = etchColumns.childNodes;
         cells.forEach( function(target) {
             clearInterval(target.evapInterval)
         });
@@ -141,21 +150,21 @@ function createEtchGrid(parentNode) {
 function populateEtchGrid(int) {
     const etchGrid = document.querySelector('.etchGrid');
     for (let i = 0; i<int; i++) {
-        createColumnContainer(etchGrid);
-        populateColumnContainer(int);
+        createEtchColumns(etchGrid);
+        populateEtchColumns(int);
     }
 }
 
-function createColumnContainer(parentNode) {
+function createEtchColumns(parentNode) {
     const div = document.createElement('div');
-    div.classList.add('columnContainer');
+    div.classList.add('etchColumns');
     div.classList.add('flex');
     div.classList.add('column');
     parentNode.appendChild(div);
 }
 
-function populateColumnContainer(int) {
-    const columns = document.querySelectorAll('.columnContainer');
+function populateEtchColumns(int) {
+    const columns = document.querySelectorAll('.etchColumns');
     const column = columns[columns.length - 1];
     for (let i = 0; i<int; i++) {
         createCell(column, int);
@@ -236,7 +245,6 @@ function convertRGBtoHSL(R, G, B) {
 
 
 function evaporate(targetID) {
-    // console.log(targetID);
     const target = document.querySelector(targetID);
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
