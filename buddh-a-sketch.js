@@ -1,4 +1,4 @@
-var IDTick = 0;
+var cellIDTick = 0;
 var evaporationRate = 750;
 var rainbowHue = Math.floor(Math.random() * 360);
 var currentStyle = "classic";
@@ -92,7 +92,7 @@ function createNewBoard(style) {
 }
 
 function createBoard(int, style) {
-    IDTick = 0;
+    cellIDTick = 0;
     if (int < 16) {
         evaporationRate = Math.round(int * 46.875);
     } else {
@@ -164,7 +164,7 @@ function populateColumnContainer(int) {
 
 function createCell(parentNode, int) {
     const div = document.createElement('div');
-    const cellID = "ID" + ++IDTick;
+    const cellID = "ID" + ++cellIDTick;
     div.setAttribute('id', cellID)
     div.classList.add('cell');
     if (currentStyle === 'classic') {
@@ -183,7 +183,7 @@ function skEtch(targetID) {
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
-    let cellHSL = RGBToHSL(...cellRGB);
+    let cellHSL = convertRGBtoHSL(...cellRGB);
     target.hue = cellHSL[0];
     target.saturation = cellHSL[1];
     target.lightness = cellHSL[2];
@@ -207,27 +207,27 @@ function skEtch(targetID) {
     }
 }
 
-function RGBToHSL(R, G, B) {
+function convertRGBtoHSL(R, G, B) {
     R /= 255;
     G /= 255;
     B /= 255;
-    let cMin = Math.min(R, G, B);
-    let cMax = Math.max(R, G, B);
-    let delta = cMax - cMin;
+    let colorMin = Math.min(R, G, B);
+    let colorMax = Math.max(R, G, B);
+    let delta = colorMax - colorMin;
     let H = 0;
     let S = 0;
     let L = 0;
     if (delta == 0) {
     H = 0;
-    } else if (cMax == R) {
+    } else if (colorMax == R) {
     H = ((G - B) / delta) % 6;
-    } else if (cMax == G) {
+    } else if (colorMax == G) {
     H = (B - R) / delta + 2;
     } else {
     H = (R - G) / delta + 4;
     H = Math.round(H * 60)
     };
-    L = (cMax + cMin) / 2;
+    L = (colorMax + colorMin) / 2;
     S = delta == 0 ? 0 : delta / (1 - Math.abs(2 * L - 1));
     S = +(S * 100).toFixed(0);
     L = +(L * 100).toFixed(0);
@@ -241,7 +241,7 @@ function evaporate(targetID) {
     let cellStyle = window.getComputedStyle(target);
     let cellRGB = cellStyle.backgroundColor.slice(4, -1);
     cellRGB = cellRGB.split(",");
-    let cellHSL = RGBToHSL(...cellRGB);
+    let cellHSL = convertRGBtoHSL(...cellRGB);
     target.lightness = cellHSL[2];
     if (currentStyle === "classic" && target.lightness < 70) {
         target.lightness += 1;
