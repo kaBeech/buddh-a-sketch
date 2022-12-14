@@ -1,4 +1,4 @@
-# etchpad
+# Buddh-A-Sketch
 
 A fun art toy or relaxing metitation tool, depending on your perspective =)
 
