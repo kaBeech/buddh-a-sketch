@@ -34,7 +34,7 @@ you enjoy it =)
   - The rainbow mode specifies that whenever a cell is painted it will retain
     that hue (and only the lightness will update) until it gets painted again
   - The processes beind the scenes are intentionally a bit wonkey and organic.
-    Higher resolutions tend to update slower.
+    Higher resolutions tend to update slower
     - I think it's fun to choose a high resolution Neon Black board with the
       rainbow mode selected, paint all over the board until it's mostly covered,
       then toggle the mode selector on and off, watching the colors slowly shift
