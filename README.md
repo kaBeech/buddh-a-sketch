@@ -27,18 +27,18 @@ you enjoy it =)
 - The button between the New Pad Buttons toggles the color mode for the Neon
   Black board
   - This button also indicates the curent hue of the paint that is on your
-    brush. In the second mode (see below) the current hue is the one in the
+    brush. In the rainbow mode (see below) the current hue is the one in the
     upper left quadrant
   - The default mode specifies a relatively monochrome board and all painted
     cells will slowly change hue at a relatively standard rate
-  - The second mode specifies that whenever a cell is painted it will retain
+  - The rainbow mode specifies that whenever a cell is painted it will retain
     that hue (and only the lightness will update) until it gets painted again
   - The processes beind the scenes are intentionally a bit wonkey and organic.
     Higher resolutions tend to update slower.
-    - I think it's fun to choose a high resolution Neon Black board with second
-      mode selected, paint all over the board until it's mostly covered, then
-      toggle the mode selector on and off, watching the colors slowly shift from
-      rainbow to monochrome and back again
+    - I think it's fun to choose a high resolution Neon Black board with the
+      rainbow mode selected, paint all over the board until it's mostly covered,
+      then toggle the mode selector on and off, watching the colors slowly shift
+      from rainbow to monochrome and back again <3
 
 ### ToDo
 
