@@ -8,7 +8,7 @@ https://kabeech.com/buddh-a-sketch/index.html
 
 This started as an emulation of a classic drawing toy and evolved to include
 functionality for meditative practice. Then I added ever-mutating neon black
-colors because fun!
+colors because it's fun!
 
 This is one of my first JavaScript projects, and still one of my favorites. It's
 not very sophisticated, but it's a lot of fun and I love it!
