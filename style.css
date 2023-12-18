@@ -1,79 +1,89 @@
+@import url("https://fontlibrary.org//face/rich-eatin");
+
 body {
-    align-items: center;
-    justify-content: space-around;
-    gap: 8px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  font-family: "RichEatinAllCaps", sans-serif, system;
+  color: #ddd;
+}
+
+main {
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .column {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .buttonContainer {
-    gap: 1em;
-    align-items: stretch;
+  gap: 1em;
+  align-items: stretch;
 }
 
 .linkCursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 button {
-    font-size: 1.75rem;
+  font-size: 1.75rem;
 }
 
 #colorButton {
-    border-style: solid;
-    border-width: 4px;
-    height: 38px;
-    aspect-ratio: 1;
+  border-style: solid;
+  border-width: 4px;
+  height: 38px;
+  aspect-ratio: 1;
 }
 
 .colorButtonCell {
-    height: 19px;
-    aspect-ratio: 1;
+  height: 19px;
+  aspect-ratio: 1;
 }
 
 .borderBlack {
-    border-color: hsl(120, 100%, 0%);
+  border-color: hsl(120, 100%, 0%);
 }
 
 .borderGrey {
-    border-color: hsl(120, 0%, 50%);
+  border-color: hsl(120, 0%, 50%);
 }
 
 .etchGrid {
-    border-style: solid;
-    border-width: 16px;
+  border-style: solid;
+  border-width: 16px;
 }
 
 .cell {
-    box-sizing: border-box;
-    width: 64px;
-    aspect-ratio: 1;
-    flex: 1 1 auto;
-    cursor: pointer;
+  box-sizing: border-box;
+  width: 64px;
+  aspect-ratio: 1;
+  flex: 1 1 auto;
+  cursor: pointer;
 }
 
 .grey {
-    background-color: hsl(120, 0%, 70%);
+  background-color: hsl(120, 0%, 70%);
 }
 
 .black {
-    background-color: hsl(120, 100%, 0%);
+  background-color: hsl(120, 100%, 0%);
 }
 
 .ltGrey {
-    background-color: hsl(120, 0%, 85%);
+  background-color: hsl(120, 0%, 85%);
 }
 
 .dkIshGrey {
-    background-color: hsl(120, 0%, 7.5%);
+  background-color: hsl(120, 0%, 7.5%);
 }
 
 .dkGrey {
-    background-color: hsl(120, 0%, 5%);
+  background-color: hsl(120, 0%, 5%);
 }
