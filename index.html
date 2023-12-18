@@ -10,36 +10,38 @@
     <link rel="icon" type="image/x-icon" href="./BuddhASketch.svg" />
   </head>
   <body class="flex column">
-    <h1>Buddh-A-Sketch</h1>
-    <div class="buttonContainer flex">
-      <button
-        class="classic ltGrey linkCursor"
-        onclick="createNewBoard('classic')"
-      >
-        New Pad
-      </button>
-      <div
-        id="colorButton"
-        class="monochrome flex linkCursor"
-        onclick="toggleColorStyle()"
-      >
-        <div class="flex column">
-          <div id="colorButtonUL" class="colorButtonCell"></div>
-          <div id="colorButtonLL" class="colorButtonCell"></div>
+    <main class="flex column">
+      <h1>Buddh-A-Sketch</h1>
+      <div class="buttonContainer flex">
+        <button
+          class="classic ltGrey linkCursor"
+          onclick="createNewBoard('classic')"
+        >
+          New Pad
+        </button>
+        <div
+          id="colorButton"
+          class="monochrome flex linkCursor"
+          onclick="toggleColorStyle()"
+        >
+          <div class="flex column">
+            <div id="colorButtonUL" class="colorButtonCell"></div>
+            <div id="colorButtonLL" class="colorButtonCell"></div>
+          </div>
+          <div class="flex column">
+            <div id="colorButtonUR" class="colorButtonCell"></div>
+            <div id="colorButtonLR" class="colorButtonCell"></div>
+          </div>
         </div>
-        <div class="flex column">
-          <div id="colorButtonUR" class="colorButtonCell"></div>
-          <div id="colorButtonLR" class="colorButtonCell"></div>
-        </div>
+        <button
+          class="neonBlackButton black linkCursor"
+          onclick="createNewBoard('neonBlack')"
+        >
+          New Pad
+        </button>
       </div>
-      <button
-        class="neonBlackButton black linkCursor"
-        onclick="createNewBoard('neonBlack')"
-      >
-        New Pad
-      </button>
-    </div>
-    <br />
-    <div class="etchGrid flex"></div>
+      <br />
+      <div class="etchGrid flex"></div>
+    </main>
   </body>
 </html>
